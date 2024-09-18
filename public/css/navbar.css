@@ -86,30 +86,24 @@ body {
     left: 0;
     top: 0;
     background-color: #2f3e46;
-    width: 0px;
+    width: 400px;
     height: 100vh;
-    transition: 300ms;
+    transition: 900ms;
     z-index: 2;
     -webkit-box-shadow: 2px 0px 15px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 0px 15px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 0px 15px 0px rgba(0,0,0,0.75);
+    transform: translateX(-100%);
 
-}
-
-.navitems {
-    display: none;
 }
 
 .contenido {
     height: 100vh;
+    background-color: var(--gris-verde);
 } 
 
-.block {
-    display: block;
-}
-
 .visible {
-    width: 400px;
+    transform: translateX(0);
 }
 
 .fondo-oscuro {
