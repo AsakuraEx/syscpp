@@ -29,25 +29,36 @@
                 <i class="bi bi-list"></i>
             </button>
     
-            <a href="index.html">
+            <a href="#">
                 <img 
                     src="/images/logo.png" 
                     alt="Logo" 
                     class="logo"
                 >
             </a>
-            
-            <button class="dropdown" id="dropdown">
-                <span>
-                    Francisco Escobar
-                </span>
-                <i class="bi bi-gear"></i>
+            <div class="drop" id="dropdown">
+                <button class="dropdown" onclick="dropdownMenu()">
+                    <span>
+                        Francisco Escobar
+                    </span>
+                    <i class="bi bi-gear"></i>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <a href="#">
+                        <i class="bi bi-pencil-fill"></i>
+                        Cambiar Contraseña
+                    </a>
+                    <a href="#">
+                        <i class="bi bi-box-arrow-left"></i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
     
-            </button>
         </nav>
     
-        <div id="fondo-oscuro">
-    
+        <div id="fondo-oscuro" onclick="ocultarMenu()">
+
         </div>
     
         <div 
@@ -55,9 +66,9 @@
             id="navmenu"
             onclick="mostrarMenu()"
         >
-            <div class="navitems" id="navitems">
+            <div>
                 <div class="perfil">
-                    <img src="images/foto-perfil.webp" alt="perfil" class="foto-perfil">
+                    <img src="/images/foto-perfil.webp" alt="perfil" class="foto-perfil">
                     <p>Francisco Josue Escobar</p>
                     <span>Administrador</span>
                 </div>
