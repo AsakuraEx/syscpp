@@ -1,8 +1,8 @@
 function mostrarMenu() {
     const menu = document.getElementById("navmenu");
     const contenedor = document.getElementById("fondo-oscuro");
-    menu.classList.add("visible");
-    contenedor.classList.add("fondo-oscuro");
+    menu.classList.toggle("visible");
+    contenedor.classList.toggle("fondo-oscuro");
 }
 
 function ocultarMenu(){
