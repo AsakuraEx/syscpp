@@ -29,7 +29,7 @@
                 <i class="bi bi-list"></i>
             </button>
     
-            <a href="#">
+            <a href="index.html">
                 <img 
                     src="/images/logo.png" 
                     alt="Logo" 
@@ -58,7 +58,7 @@
         </nav>
     
         <div id="fondo-oscuro" onclick="ocultarMenu()">
-
+    
         </div>
     
         <div 
@@ -78,6 +78,10 @@
                         Dashboard
                     </a>
                     <a href="#">
+                        <i class="bi bi-person-plus-fill"></i>
+                        Proveedores
+                    </a>
+                    <a href="#">
                         <i class="bi bi-journal"></i>
                         Facturas
                     </a>
@@ -85,12 +89,18 @@
                         <i class="bi bi-file-earmark"></i>
                         Reportes
                     </a>
+                    <a href="#">
+                        <i class="bi bi-person-circle"></i>
+                        Administración de Usuarios
+                    </a>
                 </div>
             </div>
         </div>
     
         <main class="contenido">
-            @yield('contenido')
+            <div class="principal">
+                @yield('contenido')
+            </div>
         </main>
 
         <footer>
