@@ -64,12 +64,47 @@
 
     <h1>Dashboard</h1>
 
-    <h3>Cantidad de Facturas Emitidas</h3>
-    <h3>Cantidad de Facturas Pagadas</h3>
-    <h3>Cantidad de Facturas Sin Pagar</h3>
+    <div class="fila">
+        <div class="card">
+            <h3>Total de Facturas Emitidas</h3>
+            <span>2500</span>
+        </div>
+        <div class="card">
+            <h3>Total de Facturas Pagadas</h3>
+            <span>1500</span>
+        </div>
+        <div class="card">
+            <h3>Total de Facturas Sin Pagar</h3>
+            <span>1000</span>
+        </div>
+    </div>
 
-    <h3>Mejor proveedor</h3>
-    <h3>Fecha de Último Pago</h3>
+    <div class="fila">
+        <div class="card col-2">
+            <h3>Mejor Proveedor</h3>
+            <span>Proveedor 2</span>
+        </div>
+
+        <div class="card col-2">
+            <h3>Información de último pago</h3>
+            <div class="card-larga">
+                <div>
+                    <p>
+                        <b>Fecha del ultimo pago</b>
+                    </p>
+                    <p>20/09/2024 08:30 am</p>
+                </div>
+                <div>
+                    <p>
+                        <b>Monto pagado</b>
+                    </p>
+                    <p>$25,000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="fila">
         <div class="grafico">
@@ -91,20 +126,79 @@
 @section('styles')
     
     <style>
+
+        :root {
+            --verde-oscuro: #2f3e46;
+            --verde-semioscuro: #354f52;
+            --verde-medio: #52796f;
+            --verde-claro: #84a98c;
+            --gris-verde: #cad2c5;
+            --gris-verde-2: rgb(228, 236, 223);
+            --blanco: #ffffff;
+        }
+
+        h1 {
+            color:#84a98c;
+            border-bottom: 4px solid;
+            border-color: #84a98c;
+            margin-bottom: 2rem;
+            padding-bottom: 8px;
+            font-weight: 900;
+        }
+
         .fila {
             display: flex;
             justify-content: center;
             flex-direction: column;
             gap: 12px;
+            padding-bottom: 24px;   
         }
         .grafico {
             padding: 1rem;
-            width: 500px;
+            font-size: 16px;
+
+            border: 1px solid #d9d9d9;
+            border-radius: 5px;
+            box-shadow: 2px 10px 11px -11px rgba(0,0,0,0.75);
+        }
+
+        .card {
+            padding: 2rem;
             font-size: 16px;
             font-weight: 700;
             border: 1px solid #d9d9d9;
             border-radius: 5px;
             box-shadow: 2px 10px 11px -11px rgba(0,0,0,0.75);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;       
+            color: #52796f; 
+        }
+
+        .card h3 {
+            margin: 0;
+            padding: 0;
+            font-weight: 700;
+            border-bottom: 2px solid #52796f;
+            padding-bottom: 20px;
+        }
+
+        .card span {
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .card p {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .card-larga{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         @media screen and (min-width: 720px) {
@@ -112,7 +206,29 @@
                 display: flex;
                 flex-direction: row;
             }
+
+            .grafico {
+                width: 50%;
+            }
+
+            .card {
+                width: 33%;
+            }
+
+            .card-larga{
+                display: flex;
+                flex-direction: row;
+                gap: 24px;
+            }
+
+                
+            .col-2 {
+                width: 50%;
+            }
+
         }
+
+
 
     </style>
 
