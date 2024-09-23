@@ -36,14 +36,13 @@
         
         const graficoLineas = document.getElementById('facturasEmitidas');
 
-        const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const labels = @json($dataGL['fecha']);
 
-        console.log(labels);
         const data = {
         labels: labels,
         datasets: [{
                 label: 'Facturas Emitidas',
-                data: [65, 59, 80, 81, 56, 55, 40, 100, 25, 65, 30, 60, 65],
+                data: @json($dataGL['cantidad']),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
@@ -67,7 +66,7 @@
     <div class="fila">
         <div class="card">
             <h3>Total de Facturas Emitidas</h3>
-            <span>2500</span>
+            <span>{{ $facturasTotales }}</span>
         </div>
         <div class="card">
             <h3>Total de Facturas Pagadas</h3>
@@ -108,7 +107,7 @@
 
     <div class="fila">
         <div class="grafico">
-            <span>Pago por Proveedor</span>
+            <span>Facturas por Proveedor</span>
             <canvas id="facturasProveedor"></canvas>
         </div>
         <div class="grafico">

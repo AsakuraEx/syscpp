@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FacturasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+
+Route::resource('/facturas',FacturasController::class);
+
+Route::get('/dashboard', [FacturasController::class, 'viewDashboard'])->name('dashboard');

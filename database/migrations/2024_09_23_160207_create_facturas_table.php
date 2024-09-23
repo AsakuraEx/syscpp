@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('fechaFactura');
             $table->string('facturador', 100);
             $table->float('totalFactura',8,2);
-            $table->string('estadoFactura', 20);
+            $table->string('estadoFactura', 20)->default('Sin Pagar');
             $table->foreignId('idProveedor')->references('id')->on('proveedores')->onDelete('cascade');
             $table->timestamps();
         });

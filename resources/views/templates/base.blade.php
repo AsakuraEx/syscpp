@@ -73,7 +73,7 @@
                     <span>Administrador</span>
                 </div>
                 <div class="menu">
-                    <a href="#">
+                    <a href="{{ route('dashboard') }}">
                         <i class="bi bi-house"></i>
                         Dashboard
                     </a>
