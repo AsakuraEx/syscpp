@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +20,23 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        DB::table('roles')->insert([
+            'rol' => 'Administrador',
+            'descripcion' => 'Rol con el priviegio más alto del sistema.',
+            'created_at' => now()
+        ]);
+
+        DB::table('roles')->insert([
+            'rol' => 'Monitoreo',
+            'descripcion' => 'Este usuario puede consultar reportes, visualizar dashboards.',
+            'created_at' => now()
+        ]);
+
+        DB::table('roles')->insert([
+            'rol' => 'Estandar',
+            'descripcion' => 'El usuario estandar unicamente puede crear facturas y registrar pagos.',
+            'created_at' => now()
+        ]);
     }
 }
