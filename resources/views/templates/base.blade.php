@@ -19,7 +19,7 @@
         <script src="{{ asset('js/navbar.js') }}"></script>
 
     </head>
-    <body>
+    <body id="body">
         <nav class="navbar">
             <button 
                 class="btn-menu" 
@@ -29,7 +29,7 @@
                 <i class="bi bi-list"></i>
             </button>
     
-            <a href="index.html">
+            <a href="{{ route('home') }}">
                 <img 
                     src="/images/logo.png" 
                     alt="Logo" 
@@ -73,8 +73,12 @@
                     <span>Administrador</span>
                 </div>
                 <div class="menu">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <i class="bi bi-house"></i>
+                        Inicio
+                    </a>
+                    <a href="{{ route('dashboard') }}">
+                        <i class="bi bi-speedometer2"></i>
                         Dashboard
                     </a>
                     <a href="#">
