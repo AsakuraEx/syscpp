@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FacturasController;
+use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,5 @@ Route::get('/', function () {
 Route::resource('/facturas',FacturasController::class);
 
 Route::get('/dashboard', [FacturasController::class, 'viewDashboard'])->name('dashboard');
+
+Route::resource('/proveedores', ProveedoresController::class);

@@ -81,7 +81,7 @@
                         <i class="bi bi-speedometer2"></i>
                         Dashboard
                     </a>
-                    <a href="#">
+                    <a href="{{ route('proveedores.index') }}">
                         <i class="bi bi-person-plus-fill"></i>
                         Proveedores
                     </a>

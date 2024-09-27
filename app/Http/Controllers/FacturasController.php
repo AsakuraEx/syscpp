@@ -67,18 +67,17 @@ class FacturasController extends Controller
 
     public function viewDashboard()
     {
-        $graficoLineal = DB::select('SELECT fechaFactura, COUNT(fechaFactura) as cantidad FROM facturas GROUP BY fechaFactura ORDER BY fechaFactura ASC');
-        $cantidadFacturas = count($graficoLineal); //Cantidad de fechas con facturas
-        $facturasTotales = count(Factura::all());   //Cantidad total de facturas
-        $facturasPagadas = count(DB::select("SELECT * FROM facturas WHERE estadoFactura = 'Pagado'")); //Total de facturas pagadas
-        $facturasSinPagar = $facturasTotales - $facturasPagadas; //Facturas sin pagar es igual a la diferencia de las facturas pagadas
-        $mejorProveedor = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total FROM facturas f, proveedores p WHERE f.idProveedor = p.id GROUP BY idProveedor ORDER BY total DESC LIMIT 1");
         //mejor proveedor y facturas por proveedor.
         $graficoBarras = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
                                         FROM facturas f, proveedores p WHERE f.idProveedor = p.id 
                                         GROUP BY idProveedor"
                                     );
-        $cantidadFacturasP = count($graficoBarras);
+
+        $mejorProveedor = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
+                                        FROM facturas f, proveedores p WHERE f.idProveedor = p.id 
+                                        GROUP BY idProveedor ORDER BY total DESC 
+                                        LIMIT 1"
+                                    );
 
         //Informacion del ultimo pago
         $ultimoPago = DB::select("SELECT p.pagoRealizado,  p.updated_at AS fecha, pr.nombreProveedor 
@@ -87,6 +86,16 @@ class FacturasController extends Controller
                                     ORDER BY p.updated_at DESC 
                                     LIMIT 1"
                                 );
+
+        $graficoLineal = DB::select('SELECT fechaFactura, COUNT(fechaFactura) as cantidad FROM facturas GROUP BY fechaFactura ORDER BY fechaFactura ASC');
+        $cantidadFacturas = count($graficoLineal); //Cantidad de fechas con facturas
+        $facturasTotales = count(Factura::all());   //Cantidad total de facturas
+        $facturasPagadas = count(DB::select("SELECT * FROM facturas WHERE estadoFactura = 'Pagado'")); //Total de facturas pagadas
+        $facturasSinPagar = $facturasTotales - $facturasPagadas; //Facturas sin pagar es igual a la diferencia de las facturas pagadas
+
+        $cantidadFacturasP = count($graficoBarras);
+
+
 
         //Array para mostrar el grafico de lineas
         $dataGL = [
@@ -112,7 +121,7 @@ class FacturasController extends Controller
 
         //dd($ultimoPago);
         //$facturas = DB::select('select * from facturas where id = ?', [4]);
-        
+
         return view('dashboard', compact('facturasTotales','facturasPagadas',
         'facturasSinPagar', 'mejorProveedor' ,'dataGL', 'dataBar', 'ultimoPago'));
         

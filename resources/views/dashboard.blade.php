@@ -81,7 +81,9 @@
     <div class="fila">
         <div class="card col-2">
             <h3>Mejor Proveedor</h3>
-            <span>{{ $mejorProveedor[0]->proveedor }}</span>
+            @isset ($mejorProveedor[0])
+                <span>{{ $mejorProveedor[0]->proveedor }}</span>
+            @endisset
         </div>
 
         <div class="card col-2">
@@ -91,19 +93,25 @@
                     <p>
                         <b>Fecha del ultimo pago</b>
                     </p>
-                    <p>{{ $ultimoPago[0]->fecha }}</p>
+                    @isset($ultimoPago[0])
+                        <p>{{ $ultimoPago[0]->fecha }}</p>                        
+                    @endisset
                 </div>
                 <div>
                     <p>
                         <b>Monto pagado</b>
                     </p>
-                    <p>${{ $ultimoPago[0]->pagoRealizado }}</p>
+                    @isset($ultimoPago[0])
+                        <p>{{ $ultimoPago[0]->pagoRealizado }}</p>                        
+                    @endisset
                 </div>
                 <div>
                     <p>
                         <b>Proveedor</b>
                     </p>
-                    <p>{{ $ultimoPago[0]->nombreProveedor }}</p>
+                    @isset($ultimoPago[0])
+                        <p>{{ $ultimoPago[0]->nombreProveedor }}</p>                        
+                    @endisset
                 </div>
             </div>
         </div>
