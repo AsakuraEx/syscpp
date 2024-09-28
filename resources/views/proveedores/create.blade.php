@@ -35,6 +35,7 @@
         </div>
         <br>
         <button type="submit">Agregar Proveedor</button>
+        <a href="{{ route('proveedores.index') }}">Cancelar</a>
     </form>
 
 @endsection

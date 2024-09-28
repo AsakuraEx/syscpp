@@ -27,10 +27,16 @@
                     <a href="{{ route('proveedores.edit', $proveedor->id) }}">
                         Editar
                     </a>
-                    <p>Eliminar</p>
+                    <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
+    {{ $proveedores->links() }}
 @endsection

@@ -134,8 +134,6 @@
 
 @endsection
 
-
-
 @section('styles')
     
     <style>

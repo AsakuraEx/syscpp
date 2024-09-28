@@ -1,6 +1,6 @@
 @extends('templates.base')
 
-@section('title', 'Crear Proveedor')
+@section('title', 'Modificar Proveedor')
 
 @section('contenido')
 
@@ -17,8 +17,10 @@
     @endif
 
 
-    <form action="{{ route('proveedores.update', $proveedor->id) }}" method="PATCH">
+    <form action="{{ route('proveedores.update', $proveedor->id) }}" method="POST">
         @csrf
+        @method("PATCH")
+
         <div class="campo">
             <label for="nombreProveedor">Nombre de Proveedor</label>
             <input 
@@ -43,7 +45,8 @@
             >
         </div>
         <br>
-        <button type="submit">Agregar Proveedor</button>
+        <button type="submit">Actualizar Proveedor</button>
+        <a href="{{ route('proveedores.index') }}">Cancelar</a>
     </form>
 
 @endsection

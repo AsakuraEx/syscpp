@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProveedorRequest;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProveedoresController extends Controller
 {
@@ -13,7 +14,7 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::all();
+        $proveedores = DB::table('proveedores')->orderBy('nombreProveedor','ASC')->paginate(10);
         //dd($proveedores);
         return view('proveedores.index', compact('proveedores'));
     }
@@ -33,7 +34,7 @@ class ProveedoresController extends Controller
     {
         $data = $request->validated();
         Proveedor::create($data);
-        return redirect('/proveedores')->with('success', 'Proveedor creado satisfactoriamente');
+        return to_route('proveedores.index')->with('success', 'Proveedor creado satisfactoriamente');
     }
 
     /**
@@ -50,6 +51,7 @@ class ProveedoresController extends Controller
     public function edit($id)
     {
         $proveedor = Proveedor::find($id);
+
         //d($proveedor);
         return view('proveedores.edit', compact('proveedor'));
     }
@@ -57,16 +59,20 @@ class ProveedoresController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(StoreProveedorRequest $request, $id)
     {
-        return redirect('/proveedores')->with('success', 'Proveedor creado satisfactoriamente');
+        $data = $request->validated();
+        Proveedor::where('id', $id)->update($data);
+        return to_route('proveedores.index')->with('success', 'Proveedor actualizado satisfactoriamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::find($id); 
+        $proveedor->delete();
+        return to_route('proveedores.index')->with('success', 'Elemento eliminado satisfactoriamente');
     }
 }
