@@ -14,7 +14,12 @@ class FacturasController extends Controller
      */
     public function index()
     {
-        //
+        $facturas = DB::table('facturas as f')
+                ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
+                ->select('f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura', 'p.nombreProveedor')
+                ->simplePaginate(10);
+        return view('facturas.index', compact('facturas'));
+
     }
 
     /**

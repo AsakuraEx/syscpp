@@ -29,13 +29,6 @@
                 <i class="bi bi-list"></i>
             </button>
     
-            <a href="{{ route('home') }}">
-                <img 
-                    src="/images/logo.png" 
-                    alt="Logo" 
-                    class="logo"
-                >
-            </a>
             <div class="drop" id="dropdown">
                 <button class="dropdown" onclick="dropdownMenu()">
                     <span>
@@ -85,9 +78,13 @@
                         <i class="bi bi-person-plus-fill"></i>
                         Proveedores
                     </a>
-                    <a href="#">
+                    <a href="{{ route('facturas.index') }}">
                         <i class="bi bi-journal"></i>
                         Facturas
+                    </a>
+                    <a href="#">
+                        <i class="bi bi-currency-dollar"></i>
+                        Pagos
                     </a>
                     <a href="#">
                         <i class="bi bi-file-earmark"></i>
