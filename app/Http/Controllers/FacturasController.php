@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFacturaRequest;
 use App\Models\Factura;
+use App\Models\Pago;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +18,9 @@ class FacturasController extends Controller
     {
         $facturas = DB::table('facturas as f')
                 ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
-                ->select('f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura', 'p.nombreProveedor')
-                ->simplePaginate(10);
+                ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura', 'p.nombreProveedor')
+                ->orderBy('fechaFactura', 'desc')
+                ->Paginate(10);
         return view('facturas.index', compact('facturas'));
 
     }
@@ -27,47 +30,61 @@ class FacturasController extends Controller
      */
     public function create()
     {
-        //
+        $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
+        return view('facturas.create', compact('proveedores'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFacturaRequest $request)
     {
-        //
+        $data = $request->validated();
+        Factura::create($data);
+        return to_route('facturas.index')->with('success', 'Factura creada exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Factura $factura)
+    public function show($id)
     {
-        //
+        $factura = Factura::find($id);
+        $pagosFactura = Pago::where('idFactura', $id)->get();
+        //dd($pagoFactura);
+        return view('facturas.show', compact('factura', 'pagosFactura'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Factura $factura)
+    public function edit($id)
     {
-        //
+        $factura = Factura::find($id);
+        $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
+        return view('facturas.edit', compact('factura', 'proveedores'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Factura $factura)
+    public function update(StoreFacturaRequest $request, Factura $factura)
     {
-        //
+        $data = $request->validated();
+        $factura->update($data);
+        return to_route('facturas.index')->with('success', 'Factura actualizada correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Factura $factura)
+    public function destroy($id)
     {
-        //
+        $factura = Factura::find($id); 
+        $factura->delete();
+        return to_route('facturas.index')->with('success', 'Elemento eliminado satisfactoriamente');
+
     }
 
     public function viewDashboard()

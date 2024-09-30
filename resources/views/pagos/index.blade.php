@@ -1,61 +1,56 @@
 @extends('templates.base')
 
-@section('title', 'Facturas')
-
-@section('contenido')
+@section('titulo', 'Listado de Pagos')
     
+@section('contenido')
+
     <div class="card-titulo">
-        <h1>Facturas</h1>
-        <a href="{{ route('facturas.create') }}">Agregar Facturas</a>
+        <h1>Listado de Pagos Realizados</h1>
+        <a href="{{ route('pagos.create') }}">Realizar Pago</a>
     </div>
 
     <div class="tabla">
         <table cellspacing="0">
             <thead class="table-head">
-                <td>Fecha Factura</td>
-                <td>Facturador</td>
-                <td>Total de Factura</td>
-                <td>Estado Factura</td>
+                <td>Fecha de Factura</td>
                 <td>Proveedor</td>
+                <td>Total Factura</td>
+                <td>Pago Realizado</td>
+                <td>Deuda Restante</td>
+                <td>Fecha de Pago</td>
                 <td>Acciones</td>
             </thead>
             <tbody>
-                @foreach ($facturas as $factura)
-                <tr class="table-row">
-                    <td>{{ $factura->fechaFactura }}</td>
-                    <td>{{ $factura->facturador }}</td>
-                    <td>${{ number_format($factura->totalFactura, 2, '.', ',') }}</td>
-                    <td>
-                        <div class="estado">
-                            {{ $factura->estadoFactura }}
-                        </div>
-                    </td>
-                    <td>{{ $factura->nombreProveedor }}</td>
-                    <td>
-                        @if ($factura->estadoFactura == 'Sin Pagar')
-                            <a href="{{ route('facturas.edit', $factura->id) }}">
-                                <button class="editar">Editar</button>
-                            </a>
-                            <form action="{{ route('facturas.destroy', $factura->id) }}" method="post">
+                @foreach ($pagos as $pago)
+                    <tr class="table-row">
+                        <td>{{ $pago->fechaFactura }}</td>
+                        <td>{{ $pago->nombreProveedor }}</td>
+                        <td>${{ number_format($pago->totalFactura, 2, '.',',') }}</td>
+                        <td>${{ number_format($pago->pagoRealizado, 2, '.', ',') }}</td>
+                        <td>
+                            $
+                            @foreach ($pagosTotales as $total)
+                            {{ ($total->idFactura == $pago->idFactura ? number_format(($pago->totalFactura - $total->totalPagado),2,'.',',') : "") }}                              
+                            @endforeach
+
+                        </td>
+                        <td>{{ $pago->updated_at }}</td>
+                        <td>
+                            @if ($pago->estadoFactura != 'Pagado')
+                            <form action="{{ route('pagos.destroy', $pago->id) }}" method="post">
                                 @csrf
                                 @method("DELETE")
-                                <button type="submit" class="eliminar">Eliminar</button>
+                                <button type="submit" class="eliminar">Cancelar Pago</button>
                             </form>                            
                         @endif
-                        @if ($factura->estadoFactura != 'Sin Pagar')
-                            <a href="{{ route('facturas.show', $factura->id) }}">
-                                <button class="detalle">Detalle</button>
-                            </a>
-                        @endif
-                    </td>
-                </tr>
+                        </td>
+                    </tr>                
                 @endforeach
             </tbody>
         </table>
-
     </div>
 
-    {{ $facturas->links('pagination::default') }}
+    {{ $pagos->links('pagination::default') }}
 
 @endsection
 
@@ -108,19 +103,6 @@
             padding-bottom: 0.5rem;
             vertical-align: middle;
             border-bottom: 1px solid #000;
-        }
-
-        .estado{
-            background-color: #4c8fc3;
-            width: 200px;
-            padding: 0.5rem;
-            border-radius: 30px;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-right: auto;
-            margin-left: auto;
         }
 
         .card-titulo{
@@ -211,24 +193,4 @@
     </style>
     
     
-@endsection
-
-@section('scripts-2')
-    
-    <script>
-
-        var estados = document.getElementsByClassName("estado");
-        for(var i = 0; i < estados.length; i++){
-            var estado = estados[i].innerText;
-            if(estado === "SIN PAGAR"){
-                estados[i].style.backgroundColor = "red";
-            }else if (estado === "PAGADO PARCIALMENTE"){
-                estados[i].style.backgroundColor = "orange";
-            }else {
-                estados[i].style.backgroundColor = "green"
-            }
-        }
-
-    </script>
-
 @endsection

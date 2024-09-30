@@ -11,6 +11,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+
         <!-- Styles -->
         @yield('styles')
 
@@ -82,7 +84,7 @@
                         <i class="bi bi-journal"></i>
                         Facturas
                     </a>
-                    <a href="#">
+                    <a href="{{ route('pagos.index') }}">
                         <i class="bi bi-currency-dollar"></i>
                         Pagos
                     </a>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
             $table->float('pagoRealizado', 8,2);
-            $table->foreignId('idFactura')->references('id')->on('facturas')->onDelete('cascade');
+            $table->foreignId('idFactura')->references('id')->on('facturas');
             $table->timestamps();
         });
     }

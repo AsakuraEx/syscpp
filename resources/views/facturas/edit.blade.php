@@ -1,10 +1,10 @@
 @extends('templates.base')
 
-@section('title', 'Registrar Factura')
+@section('title', 'Editar Factura')
 
 @section('contenido')
 
-    <h1>Registro de Facturas</h1>
+    <h1>Actualizar registro de Facturas</h1>
 
     @if ($errors->any())
         <div id="error">
@@ -17,21 +17,24 @@
     @endif
 
 
-    <form action="{{ route('facturas.store') }}" method="POST">
+    <form action="{{ route('facturas.update', $factura->id) }}" method="POST">
         @csrf
+        @method('PATCH')
         <div class="campo">
             <label for="fechaFactura">Fecha Factura</label>
-            <input type="date" name="fechaFactura" id="fechaFactura" required>
+            <input type="date" name="fechaFactura" id="fechaFactura" value="{{ $factura->fechaFactura }}" required>
         </div>
         <br>
         <div class="campo">
             <label for="facturador">Facturador</label>
-            <input type="text" placeholder="Ingresa el nombre de quien factura..." name="facturador" id="facturador">
+            <input type="text" placeholder="Ingresa el nombre de quien factura..." 
+            name="facturador" id="facturador" value="{{ $factura->facturador }}">
         </div>
         <br>
         <div class="campo">
             <label for="totalFactura">Total de Factura</label>
-            <input type="number" step="0.01" placeholder="Ingresa el correo del proveedor..." name="totalFactura" id="totalFactura" required>
+            <input type="number" step="0.01" placeholder="Ingresa el correo del proveedor..." 
+            name="totalFactura" id="totalFactura" required value="{{ $factura->totalFactura }}">
         </div>
         <br>
         <div class="campo">
@@ -39,12 +42,12 @@
             <select name="idProveedor" id="idProveedor" required>
                 <option value="">-- Seleccione un Proveedor --</option>
                 @foreach ($proveedores as $nombreProveedor => $id)
-                    <option value="{{ $id }}"> {{ $nombreProveedor }}</option>
+                    <option value="{{ $id }}" {{ old('idProveedor', $factura->idProveedor) == $id ? "selected" : "" }}> {{ $nombreProveedor }}</option>
                 @endforeach
             </select>
         </div>
         <br>
-        <button type="submit">Registrar Factura</button>
+        <button type="submit">Actualizar Factura</button>
         <a href="{{ route('facturas.index') }}">Cancelar</a>
     </form>
 
