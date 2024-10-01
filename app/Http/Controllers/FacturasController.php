@@ -55,8 +55,8 @@ class FacturasController extends Controller
     {
         $factura = Factura::find($id);
         $pagosFactura = Pago::where('idFactura', $id)->get();
-        //dd($pagoFactura);
-        return view('facturas.show', compact('factura', 'pagosFactura'));
+        $i = 1;
+        return view('facturas.show', compact('factura', 'pagosFactura', 'i'));
     }
 
     /**

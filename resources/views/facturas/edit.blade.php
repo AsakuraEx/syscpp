@@ -33,7 +33,7 @@
         <br>
         <div class="campo">
             <label for="totalFactura">Total de Factura</label>
-            <input type="number" step="0.01" placeholder="Ingresa el correo del proveedor..." 
+            <input type="number" step="0.01" placeholder="Ingresa valor de la factura" 
             name="totalFactura" id="totalFactura" required value="{{ $factura->totalFactura }}">
         </div>
         <br>
