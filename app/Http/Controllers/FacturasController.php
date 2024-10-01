@@ -32,10 +32,8 @@ class FacturasController extends Controller
     public function create()
     {
         $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
-        $fechaActual = new DateTime();
-        $fechaActual->modify("-1 day");
 
-        return view('facturas.create', compact('proveedores', 'fechaActual'));
+        return view('facturas.create', compact('proveedores'));
     }
 
     /**
@@ -98,7 +96,7 @@ class FacturasController extends Controller
         //mejor proveedor y facturas por proveedor.
         $graficoBarras = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
                                         FROM facturas f, proveedores p WHERE f.idProveedor = p.id 
-                                        GROUP BY idProveedor"
+                                        GROUP BY idProveedor LIMIT 5"
                                     );
 
         $mejorProveedor = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
@@ -115,7 +113,7 @@ class FacturasController extends Controller
                                     LIMIT 1"
                                 );
 
-        $graficoLineal = DB::select('SELECT fechaFactura, COUNT(fechaFactura) as cantidad FROM facturas GROUP BY fechaFactura ORDER BY fechaFactura ASC');
+        $graficoLineal = DB::select('SELECT fechaFactura, COUNT(fechaFactura) as cantidad FROM facturas GROUP BY fechaFactura ORDER BY fechaFactura ASC LIMIT 30');
         $cantidadFacturas = count($graficoLineal); //Cantidad de fechas con facturas
         $facturasTotales = count(Factura::all());   //Cantidad total de facturas
         $facturasPagadas = count(DB::select("SELECT * FROM facturas WHERE estadoFactura = 'Pagado'")); //Total de facturas pagadas

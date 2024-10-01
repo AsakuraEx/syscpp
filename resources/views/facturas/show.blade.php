@@ -41,7 +41,7 @@
                 @foreach ($pagosFactura as $pago)
                     <tr class="table-row">
                         <td>{{ $i++ }}</td>
-                        <td>{{ $pago->pagoRealizado }}</td>
+                        <td>${{ number_format($pago->pagoRealizado, 2,'.','.') }}</td>
                         <td>{{ $pago->created_at }}</td>
                     </tr>
                 @endforeach
