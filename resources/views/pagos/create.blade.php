@@ -19,8 +19,8 @@
         </div>
         <br>
         <div class="campo">
-            <label>Monto Restante ($)</label>
-            <input type="number" value="0" id="montoPagado" name="resto" disabled>
+            <label>Deuda restante ($)</label>
+            <input type="number" value="0" id="deuda" disabled>
         </div>
         <br>
         <div class="campo">
@@ -36,24 +36,34 @@
 
 @section('scripts-2')
     <script>
-        const factura = document.getElementById("idFactura");
-        const montoPagado = document.getElementById("montoPagado");
+        const idFactura = document.getElementById("idFactura");
+        const deuda = document.getElementById("deuda");
         const pagoRealizado = document.getElementById("pagoRealizado");
-        const array = [];
-        factura.addEventListener('change', function(){
-            array.push(@json($facturas));
-            for(let i = 0; i < array.length; i++){
-                if(array[0][i].id == factura.value){
-                    montoPagado.value = (array[0][i].totalFactura - array[0][i].totalPagado).toFixed(2);
-                    pagoRealizado.setAttribute('max', montoPagado.value);
-                    console.log(montoPagado.value);
-                }else{
-                    montoPagado.value = 0;
-                    pagoRealizado.setAttribute('max', array[0][i].totalFactura);
-                    console.log(montoPagado.value);
+        const data1 = @json($facturas);
+        const data2 = @json($facturasSinPagar);
+        
+        idFactura.addEventListener('change', function(){
+            const seleccion = idFactura.value;
+            if(data1.length === 0){
+                let factura = data2.find(f => f.id === Number(seleccion));
+                deuda.value = factura.totalFactura;
+                pagoRealizado.setAttribute('max', factura.totalFactura);
+                console.log("Primer Registro:", factura);
+            }else{
+                let factura = data1.find(f=> f.id === Number(seleccion));
+                if (!factura){
+                    factura = data2.find(f => f.id === Number(seleccion));
+                    deuda.value = factura.totalFactura;
+                    pagoRealizado.setAttribute('max', factura.totalFactura);
+                    console.log("Factura con deuda total:",factura);
+                }else {
+                    let resta = (factura.totalFactura - factura.totalPagado);
+                    deuda.value = resta;
+                    pagoRealizado.setAttribute('max', resta);
+                    console.log("Sepa:",factura);
                 }
             }
-        })
+        });
 
     </script>
 @endsection

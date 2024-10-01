@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Factura;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +46,31 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
+        //Guardando el pago
         $data = $request->all();
         Pago::create($data);
+
+        //Obteniendo la factura
+        $factura = Factura::where('id',$request->idFactura)->first();
+
+        //calculando el saldo de pagos realizados
+        $saldo = DB::table('pagos')
+                ->where('idFactura', $request->idFactura)
+                ->select(DB::raw('SUM(pagoRealizado) as total'))
+                ->first();
+
+        //calcula el saldo pendiente        
+        $resta = $factura->totalFactura - $saldo->total;
+
+        // Determina el estado de la factura
+        if($resta == 0){
+            //Si el saldo pendiente es cero
+            $factura->update(['estadoFactura' => 'Pagado']);
+        } elseif ($resta > 0){
+            //Si existe saldo pendiente, la factura esta parcialmente pagada
+            $factura->update(['estadoFactura' => 'Pagado Parcialmente']);
+        }
+   
         return to_route('pagos.index')->with('success', 'Pago registrado exitosamente');
     }
 
@@ -81,6 +105,15 @@ class PagosController extends Controller
     {
         $pago = Pago::where('id',$id)->first(); 
         $pago->delete();
+
+        $factura = Factura::where('id', $pago->idFactura)->first();    
+        $totalPagos = Pago::where('idFactura', $factura->id)
+                        ->sum('pagoRealizado'); 
+
+        if ($totalPagos == 0) {
+            $factura->update(['estadoFactura' => 'Sin Pagar']);
+        }
+
         return to_route('pagos.index')->with('success', 'Elemento eliminado satisfactoriamente');
     }
 }

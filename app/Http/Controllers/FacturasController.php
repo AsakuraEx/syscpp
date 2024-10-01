@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFacturaRequest;
 use App\Models\Factura;
 use App\Models\Pago;
+use DateTime;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,10 @@ class FacturasController extends Controller
     public function create()
     {
         $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
-        return view('facturas.create', compact('proveedores'));
+        $fechaActual = new DateTime();
+        $fechaActual->modify("-1 day");
+
+        return view('facturas.create', compact('proveedores', 'fechaActual'));
     }
 
     /**
@@ -62,7 +66,9 @@ class FacturasController extends Controller
     {
         $factura = Factura::find($id);
         $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
-        return view('facturas.edit', compact('factura', 'proveedores'));
+        $fechaActual = new DateTime();
+        $fechaActual->modify("-1 day");
+        return view('facturas.edit', compact('factura', 'proveedores', 'fechaActual'));
 
     }
 

@@ -22,7 +22,7 @@
         @method('PATCH')
         <div class="campo">
             <label for="fechaFactura">Fecha Factura</label>
-            <input type="date" name="fechaFactura" id="fechaFactura" value="{{ $factura->fechaFactura }}" required>
+            <input type="date" name="fechaFactura" id="fechaFactura" value="{{ $factura->fechaFactura }}" min="2024-09-01" max="{{ $fechaActual->format("Y-m-d") }}" required>
         </div>
         <br>
         <div class="campo">
