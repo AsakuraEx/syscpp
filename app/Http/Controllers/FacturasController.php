@@ -6,7 +6,6 @@ use App\Http\Requests\StoreFacturaRequest;
 use App\Models\Factura;
 use App\Models\Pago;
 use DateTime;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +21,10 @@ class FacturasController extends Controller
                 ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura', 'p.nombreProveedor')
                 ->orderBy('fechaFactura', 'desc')
                 ->Paginate(10);
-        return view('facturas.index', compact('facturas'));
+
+        $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
+
+        return view('facturas.index', compact('facturas', 'proveedores'));
 
     }
 
@@ -156,4 +158,35 @@ class FacturasController extends Controller
         'facturasSinPagar', 'mejorProveedor' ,'dataGL', 'dataBar', 'ultimoPago'));
         
     }
+
+    public function buscarFactura(Request $request){
+        
+        $proveedor = $request->idProveedor;
+        $estado = $request->estadoFactura;
+        $fecha = $request->fecha;
+
+        $facturas = DB::table('facturas as f')
+            ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
+            ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura','f.idProveedor', 'p.nombreProveedor')
+            ->orderBy('fechaFactura', 'desc');
+        
+        if($proveedor != null){
+            $facturas->where('f.idProveedor', $proveedor);
+        }
+        if($estado != null){
+            $facturas->where('f.estadoFactura', $estado);
+        }
+        if($fecha != null){
+            $facturas->where('f.fechaFactura', $fecha);
+        }
+        
+        $facturas = $facturas->Paginate(10);
+
+        $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
+
+        return view('facturas.index', compact('facturas', 'proveedores'));
+
+    }
+
+
 }

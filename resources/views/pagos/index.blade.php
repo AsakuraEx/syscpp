@@ -209,7 +209,6 @@
             border-radius: 4px;
             height: 24px;
             transition: background-color 500ms ease-out;
-            width: 200px;
         }
 
         .pagar:hover{
@@ -226,7 +225,6 @@
             border-radius: 4px;
             color: #ffffff;
             padding: 0.75rem;
-            width: 200px;
             transition: background-color 500ms ease-out;
             cursor: pointer;
         }
@@ -239,7 +237,6 @@
             border-radius: 4px;
             color: #525252;
             padding: 0.75rem;
-            width: 200px;
             text-decoration: none;
             transition: background-color 500ms ease-out;
         }
@@ -270,24 +267,6 @@
             background-color: #2f6996;
         }
 
-        .editar{
-            text-decoration: none;
-            background-color: #c39d4c;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 16px;
-            padding: 0.75rem;
-            border-radius: 4px;
-            width: 120px;
-            transition: background-color 300ms ease-out;
-            border: 0;
-            margin-bottom: 4px;
-        }
-
-        .editar:hover {
-            background-color: #9b7930;
-        }
-        
         .eliminar{
             text-decoration: none;
             background-color: #c34c4c;
@@ -316,6 +295,15 @@
 
             .btn-filtros{
                 flex-direction: row;
+            }
+            .btn-filtros button[type="submit"]{
+                width: 200px;
+            }
+            .pagar{
+                width: 200px;
+            }
+            .limpiar{
+                width: 200px;
             }
         }
 

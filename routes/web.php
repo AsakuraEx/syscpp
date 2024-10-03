@@ -21,12 +21,17 @@ Route::get('/', function () {
 })->name('home');
 
 
+Route::get('/facturas/busqueda', [FacturasController::class, 'buscarFactura'])->name('buscarFactura');
+
 Route::resource('/facturas',FacturasController::class);
 
 Route::get('/dashboard', [FacturasController::class, 'viewDashboard'])->name('dashboard');
 
 Route::get('/pagos/busqueda', [PagosController::class, 'buscarPago'])->name('buscarPago');
 
+Route::resource('/pagos', PagosController::class);
+
+Route::get('/proveedores/busqueda', [ProveedoresController::class, 'buscarProveedor'])->name('buscarProveedor');
+
 Route::resource('/proveedores', ProveedoresController::class);
 
-Route::resource('/pagos', PagosController::class);

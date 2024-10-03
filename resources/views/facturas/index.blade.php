@@ -6,7 +6,44 @@
     
     <div class="card-titulo">
         <h1>Facturas</h1>
-        <a href="{{ route('facturas.create') }}">Agregar Facturas</a>
+
+        <form action="{{ route('buscarFactura') }}" method="GET" class="filtros">
+            <div class="campos-filtro">
+                <div class="campo">
+                    <label for="idProveedor">Proveedor</label>
+                    <select name="idProveedor" id="idProveedor">
+                        <option value="">Seleccione un proveedor...</option>
+                        @foreach ($proveedores as $nombreProveedor => $id)
+                            <option value="{{$id}}">{{$nombreProveedor}}</option>
+                        @endforeach
+                    </select>
+                </div>
+    
+                <div class="campo">
+                    <label for="estadoFactura">Estado de Factura</label>
+                    <select name="estadoFactura" id="estadoFactura">
+                        <option value="">Seleccione un estado...</option>
+                        <option value="Sin Pagar">Sin Pagar</option>
+                        <option value="Pagado Parcialmente">Pagado Parcialmente</option>
+                        <option value="Pagado">Pagado</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="fecha">Fecha de Factura</label>
+                    <input type="date" name="fecha" id="fecha">
+                </div>
+
+            </div>
+
+            <div class="btn-filtros">
+                <button type="submit">Buscar</button>
+                <a class="limpiar" href="{{ route('facturas.index')}}">Limpiar</a>
+                <a class="crear-factura" href="{{ route('facturas.create') }}">Agregar Factura</a>
+            </div>
+        </form>
+
+
     </div>
 
     <div class="tabla">
@@ -129,6 +166,7 @@
             padding: 1rem;
             margin-bottom: 24px;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
             align-items: center;
         }
@@ -136,24 +174,6 @@
         .card-titulo h1{
             color: var(--verde-medio);
         }
-
-        .card-titulo a{
-            text-decoration: none;
-            background-color: var(--verde-semioscuro);
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 20px;
-            padding: 0.75rem;
-            border-radius: 4px;
-            height: 24px;
-            transition: background-color 500ms ease-out;
-        }
-
-        .card-titulo a:hover{
-            background-color: #536a6d;
-
-        }
-
 
         .detalle{
             text-decoration: none;
@@ -167,6 +187,7 @@
             transition: background-color 300ms ease-out;
             border: 0;
             margin-bottom: 4px;
+            cursor: pointer;
         }
 
         .detalle:hover {
@@ -185,6 +206,7 @@
             transition: background-color 300ms ease-out;
             border: 0;
             margin-bottom: 4px;
+            cursor: pointer;
         }
 
         .editar:hover {
@@ -202,10 +224,139 @@
             width: 120px;           
             transition: background-color 500ms ease-out;
             border: 0;
+            cursor: pointer;
         }
 
         .eliminar:hover {
             background-color: #a53737;
+        }
+
+        .filtros{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .campos-filtro {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .campo select {
+            padding: 0.5rem;
+            border-radius: 2px;
+            border: 1px solid #b6b6b6;
+            font-size: 20px;
+        }
+
+        .campo input[type="date"]{
+            padding: 0.5rem;
+            border-radius: 2px;
+            border: 1px solid #b6b6b6;
+            font-size: 20px;
+        }
+
+        .btn-filtros{
+            background-color: #e7e7e7;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            gap: 12px;
+        }
+
+        .crear-factura{
+            text-decoration: none;
+            background-color: var(--verde-semioscuro);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 0.75rem;
+            border-radius: 4px;
+            height: 24px;
+            transition: background-color 500ms ease-out;
+        }
+
+        .crear-factura:hover{
+            background-color: #536a6d;
+
+        }
+
+        .pagar:hover{
+            background-color: #536a6d;
+
+        }
+
+
+        .btn-filtros button[type="submit"] {
+            background-color: var(--verde-claro);
+            border: 0;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 4px;
+            color: #ffffff;
+            padding: 0.75rem;
+            transition: background-color 500ms ease-out;
+            cursor: pointer;
+        }
+
+        .btn-filtros button[type="submit"]:hover {
+            background-color: #6d9776;
+        }
+
+        .limpiar {
+            background-color: #f1f1f1;
+            border: 0;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 4px;
+            color: #525252;
+            padding: 0.75rem;
+            text-decoration: none;
+            transition: background-color 500ms ease-out;
+        }
+
+        .limpiar:hover {
+            background-color: #fff;
+        }
+
+        @media screen and (min-width: 680px){
+            .filtros{
+                flex-direction: column;
+            }
+            .campos-filtro {
+                flex-direction: row;
+            }
+
+            .btn-filtros{
+                flex-direction: row;
+            }
+
+            .crear-factura{
+                width: 200px;
+            }
+            .limpiar{
+                width: 200px;
+            }
+
+            .btn-filtros button[type="submit"]{
+                width: 200px;
+            }
         }
 
     </style>

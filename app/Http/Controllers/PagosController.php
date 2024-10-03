@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Factura;
 use App\Models\Pago;
-use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
