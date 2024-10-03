@@ -51,7 +51,11 @@ class FacturasController extends Controller
      */
     public function show($id)
     {
-        $factura = Factura::find($id);
+        $factura = DB::table('facturas as f')
+                    ->join('proveedores as p', 'p.id', '=', 'f.idProveedor')
+                    ->select('f.fechaFactura', 'f.facturador', 'f.totalFactura', 'p.nombreProveedor', 'f.estadoFactura')
+                    ->where('f.id', $id)
+                    ->first();
         $pagosFactura = Pago::where('idFactura', $id)->get();
         $i = 1;
         return view('facturas.show', compact('factura', 'pagosFactura', 'i'));
@@ -96,7 +100,7 @@ class FacturasController extends Controller
         //mejor proveedor y facturas por proveedor.
         $graficoBarras = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
                                         FROM facturas f, proveedores p WHERE f.idProveedor = p.id 
-                                        GROUP BY idProveedor LIMIT 5"
+                                        GROUP BY idProveedor ORDER BY total LIMIT 5"
                                     );
 
         $mejorProveedor = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 

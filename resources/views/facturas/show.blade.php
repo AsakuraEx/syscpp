@@ -19,7 +19,7 @@
                     <td>{{ $factura->fechaFactura }}</td>
                     <td>{{ $factura->facturador }}</td>
                     <td>${{ number_format($factura->totalFactura, 2, '.', ',') }}</td>
-                    <td>{{ $factura->idProveedor }}</td>
+                    <td>{{ $factura->nombreProveedor }}</td>
                     <td>
                         <div class="estado">
                             {{ $factura->estadoFactura }}

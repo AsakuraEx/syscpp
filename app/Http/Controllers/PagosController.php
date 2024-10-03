@@ -37,7 +37,13 @@ class PagosController extends Controller
             ->groupBy('f.fechaFactura', 'f.id', 'f.totalFactura', 'f.estadoFactura')
             ->get();
 
-        $facturasSinPagar = DB::table('facturas')->where('estadoFactura', '!=', 'Pagado')->get();
+        //$facturasSinPagar = DB::table('facturas')->where('estadoFactura', '!=', 'Pagado')->get();
+        $facturasSinPagar = DB::table('facturas as f')
+                                        ->join('proveedores as p', 'p.id', '=', 'f.idProveedor')
+                                        ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura', 'p.nombreProveedor', 'f.estadoFactura')
+                                        ->where('f.estadoFactura', 'Pagado')
+                                        ->get();
+        
         return view('pagos.create', compact('facturas', 'facturasSinPagar'));
     }
 
