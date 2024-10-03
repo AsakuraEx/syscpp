@@ -25,6 +25,8 @@ Route::resource('/facturas',FacturasController::class);
 
 Route::get('/dashboard', [FacturasController::class, 'viewDashboard'])->name('dashboard');
 
+Route::get('/pagos/busqueda', [PagosController::class, 'buscarPago'])->name('buscarPago');
+
 Route::resource('/proveedores', ProveedoresController::class);
 
 Route::resource('/pagos', PagosController::class);

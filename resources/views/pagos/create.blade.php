@@ -232,19 +232,19 @@
             if(data1.length === 0){
                 let factura = data2.find(f => f.id === Number(seleccion));
                 deuda.value = factura.totalFactura;
-                pagoRealizado.setAttribute('max', factura.totalFactura);
+                pagoRealizado.setAttribute('max', factura.totalFactura.toFixed(2));
                 console.log("Primer Registro:", factura);
             }else{
                 let factura = data1.find(f=> f.id === Number(seleccion));
                 if (!factura){
                     factura = data2.find(f => f.id === Number(seleccion));
                     deuda.value = factura.totalFactura;
-                    pagoRealizado.setAttribute('max', factura.totalFactura);
+                    pagoRealizado.setAttribute('max', factura.totalFactura.toFixed(2));
                     console.log("Factura con deuda total:",factura);
                 }else {
                     let resta = (factura.totalFactura - factura.totalPagado);
                     deuda.value = resta;
-                    pagoRealizado.setAttribute('max', resta);
+                    pagoRealizado.setAttribute('max', resta.toFixed(2));
                     console.log("Sepa:",factura);
                 }
             }

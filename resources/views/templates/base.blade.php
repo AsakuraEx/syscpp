@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
         <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
 
@@ -89,8 +90,8 @@
                         Pagos
                     </a>
                     <a href="#">
-                        <i class="bi bi-file-earmark"></i>
-                        Reportes
+                        <i class='bx bxs-crown'></i>
+                        Ranking de Proveedores
                     </a>
                     <a href="#">
                         <i class="bi bi-person-circle"></i>

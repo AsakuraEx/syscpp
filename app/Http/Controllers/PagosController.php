@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Factura;
 use App\Models\Pago;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +23,10 @@ class PagosController extends Controller
                     ->Paginate(10);
 
         $pagosTotales = DB::table('pagos')->select('idFactura', DB::raw('SUM(pagoRealizado) as totalPagado'))->groupBy('idFactura')->get();
-        return view('pagos.index', compact('pagos', 'pagosTotales'));
+
+        $proveedores = DB::table('proveedores')->pluck('id','nombreProveedor');
+
+        return view('pagos.index', compact('pagos', 'pagosTotales', 'proveedores'));
     }
 
     /**
@@ -41,7 +45,7 @@ class PagosController extends Controller
         $facturasSinPagar = DB::table('facturas as f')
                                         ->join('proveedores as p', 'p.id', '=', 'f.idProveedor')
                                         ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura', 'p.nombreProveedor', 'f.estadoFactura')
-                                        ->where('f.estadoFactura', 'Pagado')
+                                        ->where('f.estadoFactura','!=' ,'Pagado')
                                         ->get();
         
         return view('pagos.create', compact('facturas', 'facturasSinPagar'));
@@ -121,5 +125,44 @@ class PagosController extends Controller
         }
 
         return to_route('pagos.index')->with('success', 'Elemento eliminado satisfactoriamente');
+    }
+
+    public function buscarPago(Request $request){
+
+        //Guardando valores en variables dentro del metodo
+        $id_proveedor = $request->idProveedor;
+        $fecha_factura = $request->fechaFactura;
+        $fecha_pago = $request->fechaPago;
+        //Evaluar las variables, dependiendo que campo llena, realizar la busqueda según las selecciones
+
+        $pagos = DB::table('facturas as f')
+            ->join('pagos as p', 'f.id', '=', 'p.idFactura')
+            ->join('proveedores as pr', 'pr.id', '=', 'f.idProveedor')
+            ->select('p.id', 'f.estadoFactura', 'f.fechaFactura', 'f.totalFactura', 'p.pagoRealizado', 'p.idFactura', 'pr.id', 'pr.nombreProveedor', 'p.updated_at')
+            ->orderBy('p.updated_at', 'desc');
+    
+        // Agregar condiciones dinámicas (filtros activos)
+        if ($id_proveedor != null) {
+            $pagos->where('pr.id', '=', $id_proveedor);
+        }
+        
+        if ($fecha_factura != null) {
+            $pagos->where('f.fechaFactura', '=', $fecha_factura);
+        }
+        
+        if ($fecha_pago != null) {
+            $pagos->where('p.updated_at', 'like', $fecha_pago . '%');
+        }
+        
+        // Ejecutar la consulta paginada
+        $pagos = $pagos->paginate(10);
+
+
+        $pagosTotales = DB::table('pagos')->select('idFactura', DB::raw('SUM(pagoRealizado) as totalPagado'))->groupBy('idFactura')->get();
+
+        $proveedores = DB::table('proveedores')->pluck('id','nombreProveedor');
+
+        return view('pagos.index', compact('pagos', 'pagosTotales', 'proveedores'));
+
     }
 }
