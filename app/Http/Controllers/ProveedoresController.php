@@ -84,4 +84,21 @@ class ProveedoresController extends Controller
         }
         return view('proveedores.index', compact('proveedores'));
     }
+
+    public function rankingProveedores(){
+        
+        $data = DB::table('facturas as f')
+                    ->join('proveedores as p','f.idProveedor','=','p.id')
+                    ->select('p.nombreProveedor', DB::raw('COUNT(f.id) as totalFacturas'))
+                    ->groupBy('f.idProveedor')
+                    ->orderBy('totalFacturas', 'desc')
+                    ->limit(10)
+                    ->get();
+
+        $totalFacturas = DB::table('facturas')->count('id');
+
+        $contador = 1;
+
+        return view('proveedores.ranking', compact('data', 'contador', 'totalFacturas'));
+    }
 }

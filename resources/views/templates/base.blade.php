@@ -89,7 +89,7 @@
                         <i class="bi bi-currency-dollar"></i>
                         Pagos
                     </a>
-                    <a href="#">
+                    <a href="{{ route('proveedores.ranking') }}">
                         <i class='bx bxs-crown'></i>
                         Ranking de Proveedores
                     </a>

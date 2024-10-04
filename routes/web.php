@@ -31,7 +31,10 @@ Route::get('/pagos/busqueda', [PagosController::class, 'buscarPago'])->name('bus
 
 Route::resource('/pagos', PagosController::class);
 
+Route::get('/ranking-proveedores', [ProveedoresController::class, 'rankingProveedores'])->name('proveedores.ranking');
+
 Route::get('/proveedores/busqueda', [ProveedoresController::class, 'buscarProveedor'])->name('buscarProveedor');
 
 Route::resource('/proveedores', ProveedoresController::class);
+
 
