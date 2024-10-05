@@ -35,7 +35,7 @@
             <div class="drop" id="dropdown">
                 <button class="dropdown" onclick="dropdownMenu()">
                     <span>
-                        Francisco Escobar
+                        {{ Auth::user()->name }}
                     </span>
                     <i class="bi bi-gear"></i>
                 </button>
@@ -44,10 +44,13 @@
                         <i class="bi bi-pencil-fill"></i>
                         Cambiar Contraseña
                     </a>
-                    <a href="#">
-                        <i class="bi bi-box-arrow-left"></i>
-                        Cerrar Sesión
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="logout" type="submit">
+                            <i class="bi bi-box-arrow-left"></i>
+                            Cerrar Sesión
+                        </button>
+                    </form>
                 </div>
             </div>
     
@@ -65,18 +68,31 @@
             <div>
                 <div class="perfil">
                     <img src="/images/foto-perfil.webp" alt="perfil" class="foto-perfil">
-                    <p>Francisco Josue Escobar</p>
-                    <span>Administrador</span>
+                    <p>{{ Auth::user()->name }}</p>
+                    <span>
+                        @if (Auth::user()->rol_type == 1)
+                            ADMINISTRADOR
+                        @endif
+                        @if (Auth::user()->rol_type == 2)
+                            MONITOREO
+                        @endif
+                        @if (Auth::user()->rol_type == 3)
+                            ESTANDAR
+                        @endif
+                    </span>
                 </div>
                 <div class="menu">
                     <a href="{{ route('home') }}">
                         <i class="bi bi-house"></i>
                         Inicio
                     </a>
-                    <a href="{{ route('dashboard') }}">
-                        <i class="bi bi-speedometer2"></i>
-                        Dashboard
-                    </a>
+                    @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
+                        <a href="{{ route('dashboard') }}">
+                            <i class="bi bi-speedometer2"></i>
+                            Dashboard
+                        </a>
+                    @endif
+
                     <a href="{{ route('proveedores.index') }}">
                         <i class="bi bi-person-plus-fill"></i>
                         Proveedores
@@ -89,14 +105,18 @@
                         <i class="bi bi-currency-dollar"></i>
                         Pagos
                     </a>
-                    <a href="{{ route('proveedores.ranking') }}">
-                        <i class='bx bxs-crown'></i>
-                        Ranking de Proveedores
-                    </a>
-                    <a href="#">
-                        <i class="bi bi-person-circle"></i>
-                        Administración de Usuarios
-                    </a>
+                    @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
+                        <a href="{{ route('proveedores.ranking') }}">
+                            <i class='bx bxs-crown'></i>
+                            Ranking de Proveedores
+                        </a>
+                    @endif
+                    @if (Auth::user()->rol_type == 1)
+                        <a href="#">
+                            <i class="bi bi-person-circle"></i>
+                            Administración de Usuarios
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

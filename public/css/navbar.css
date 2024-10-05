@@ -222,6 +222,25 @@ body {
     background-color: #d9d9d9;
 }
 
+.logout{
+    text-decoration: none;
+    color: #333333;
+    font-size: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    display: flex;
+    gap: 1rem;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.logout:hover{
+    background-color: #d9d9d9;
+}
+
 .expandir {
     display: flex;
 }

@@ -1,0 +1,103 @@
+:root {
+    --verde-oscuro: #2f3e46;
+    --verde-semioscuro: #354f52;
+    --verde-medio: #52796f;
+    --verde-claro: #84a98c;
+    --gris-verde: #cad2c5;
+    --gris-verde-2: rgb(228, 236, 223);
+    --blanco: #ffffff;
+}
+
+html, body {
+    height: 100%; /* Asegúrate de que el body y el html ocupen el 100% de la altura */
+    margin: 0; /* Elimina el margen por defecto */
+    font-family: "Roboto", sans-serif;
+    overflow-y: auto;
+}
+
+body {
+    background-color: var(--verde-claro);
+    display: flex; /* Usar Flexbox para centrar */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+}
+
+.login {
+    background: white; /* Fondo blanco para el formulario */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 300px; /* Ancho del formulario */
+    text-align: left; /* Centra el texto dentro del formulario */
+    padding-bottom: 40px;
+
+}
+
+.login form div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.login form div label{
+    text-transform: uppercase;
+}
+
+.login form div input{
+    border: 1px #d9d9d9 solid;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.login form button{
+    text-decoration: none;
+    background-color: var(--verde-semioscuro);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: background-color 500ms ease-out;
+    border: 0;
+}
+
+.login form button:hover{
+    background-color: #768d90;
+
+}
+
+.registrarse{
+    text-decoration: none;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: background-color 500ms ease-out;
+    border: 0;
+}
+
+.registrarse:hover{
+    background-color: #9f9f9f;
+
+}
+
+.titulo {
+    padding-top: 20px;
+}
+
+.titulo h1 {
+    color: var(--verde-medio);
+    padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.titulo h6{
+    color: #d9d9d9;
+    padding: 0;
+    margin: 0;
+}

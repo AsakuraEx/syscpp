@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,6 +40,13 @@ class DatabaseSeeder extends Seeder
             'rol' => 'Estandar',
             'descripcion' => 'El usuario estandar unicamente puede crear facturas y registrar pagos.',
             'created_at' => now()
+        ]);
+
+        User::create([
+            'name' => 'Francisco Escobar',
+            'email' => 'franescobar97@hotmail.com',
+            'password' => Hash::make('123'),
+            'rol_type' => '1'
         ]);
     }
 }
