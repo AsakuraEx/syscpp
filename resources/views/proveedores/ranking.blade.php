@@ -18,7 +18,7 @@
                     <td>{{ $contador++ }}</td>
                     <td>{{ $item->nombreProveedor }}</td>
                     <td>{{ $item->totalFacturas }} facturas</td>
-                    <td>{{ (($item->totalFacturas / $totalFacturas)*100) }}%</td>
+                    <td>{{ number_format((($item->totalFacturas / $totalFacturas)*100),2,'.',',') }}%</td>
                 </tr>                
                 @endforeach
     

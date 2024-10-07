@@ -18,6 +18,7 @@ class PagosController extends Controller
                     ->join('pagos as p','f.id','=', 'p.idFactura')
                     ->join('proveedores as pr', 'pr.id', '=', 'f.idProveedor')
                     ->select('p.id', 'f.estadoFactura', 'f.fechaFactura', 'f.totalFactura', 'p.pagoRealizado', 'p.idFactura', 'pr.nombreProveedor', 'p.updated_at')
+                    ->orderBy('f.estadoFactura', 'desc')
                     ->orderBy('p.updated_at', 'desc')
                     ->Paginate(10);
 

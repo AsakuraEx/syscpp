@@ -102,7 +102,7 @@ class FacturasController extends Controller
         //mejor proveedor y facturas por proveedor.
         $graficoBarras = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
                                         FROM facturas f, proveedores p WHERE f.idProveedor = p.id 
-                                        GROUP BY idProveedor ORDER BY total LIMIT 5"
+                                        GROUP BY idProveedor ORDER BY total DESC LIMIT 5"
                                     );
 
         $mejorProveedor = DB::select("SELECT p.nombreProveedor AS proveedor, COUNT(idProveedor) AS total 
