@@ -21,6 +21,14 @@ class AutenticacionController extends Controller
     {
         $credenciales = $request->only('email','password');
 
+        $usuario = DB::table('users')->where('email', $request->email)->first();
+
+        if($usuario->estado === 0){
+            return back()->withErrors([
+                'email' => 'El usuario esta deshabilitado',
+            ]);
+        }
+
         if(Auth::attempt($credenciales)){
             $request->session()->regenerate();
             return redirect()->intended('/');
