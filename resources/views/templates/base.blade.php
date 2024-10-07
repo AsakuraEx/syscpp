@@ -112,7 +112,7 @@
                         </a>
                     @endif
                     @if (Auth::user()->rol_type == 1)
-                        <a href="#">
+                        <a href="{{ route('usuarios.index') }}">
                             <i class="bi bi-person-circle"></i>
                             Administración de Usuarios
                         </a>

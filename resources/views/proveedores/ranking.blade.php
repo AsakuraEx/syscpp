@@ -1,5 +1,5 @@
 @extends('templates.base')
-@section('titulo', 'Ranking de Proveedores')
+@section('title', 'Ranking de Proveedores')
 
 @section('contenido')
     <h1>Los 10 mejores proveedores de NONG</h1>

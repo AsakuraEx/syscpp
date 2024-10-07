@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AutenticacionController extends Controller
@@ -35,26 +37,106 @@ class AutenticacionController extends Controller
         return redirect('/login');
     }
 
-    public function registrarse()
-    {
-        return view('auth.register');
+    public function index(){
+        $usuarios = DB::table('users as u')
+                    ->join('roles as r', 'u.rol_type', '=', 'r.id')
+                    ->select('u.id', 'u.name', 'u.email', 'u.estado', 'r.rol')
+                    ->paginate(10);
+
+        $roles = DB::table('roles')->pluck('id', 'rol');
+        return view('auth.index', compact('usuarios', 'roles'));
     }
 
-    public function guardarRegistro(Request $request)
-    {
+    public function create(){
+        $roles = DB::table('roles')->pluck('id', 'rol');
+        return view('auth.create', compact('roles'));
+    }
+
+    public function store(Request $request){
+        
         if($request->password === $request->password2){
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'rol_type' => '3'
+                'rol_type' => $request->rol
             ]);
-            return redirect('/login')->with('success', 'Se ha creado el usuario, por favor inicia sesion');
         }
 
-        return back()->withErrors([
-            'password' => 'Las contraseñas no coinciden',
-        ]);
+        return to_route('usuarios.index')->with('success', 'Se ha creado el usuario');
 
     }
+
+    public function edit($id){
+        $usuario = DB::table('users')->where('id', $id)->first();
+        $roles = DB::table('roles')->pluck('id', 'rol');
+        return view('auth.edit', compact('usuario', 'roles'));
+    }
+
+    public function update(Request $request, $id){
+
+        $usuario = User::where('id', $id)->first();
+        if($request->password == null){
+            $usuario->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'rol_type' => $request->rol_type
+            ]);
+        }elseif ($request->password === $request->password2){
+            $usuario->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'rol_type' => $request->rol_type
+            ]);
+        }else{
+            return back()->withErrors([
+                'password' => 'Las contraseñas no coinciden',
+            ]);
+        }
+
+        return to_route('usuarios.index')->with('success', 'Se ha actualizado el usuario');
+    }
+
+    public function cambiarEstado($id){
+        $usuario = User::where('id', $id)->first();
+        if($usuario->estado == 1){
+            $usuario->update([
+                'estado' => 0
+            ]);
+        }else{
+            $usuario->update([
+                'estado' => 1
+            ]);
+        }
+
+        return to_route('usuarios.index')->with('success', 'Actualización de estado exitoso');
+    }
+
+    public function buscarUsuario(Request $request){
+
+        $usuarios = DB::table('users as u')
+            ->join('roles as r', 'u.rol_type', '=', 'r.id')
+            ->select('u.id', 'u.name', 'u.email', 'u.estado', 'r.rol');
+
+        if($request->usuario != null){
+            $usuarios->where('u.name', 'like', '%'.$request->usuario.'%');
+        }
+
+        if($request->estado != null){
+            $usuarios->where('estado', $request->estado);
+        }
+
+        if($request->rol != null){
+            $usuarios->where('rol_type', $request->rol);
+        }
+
+        $usuarios = $usuarios->paginate(10);
+
+        $roles = DB::table('roles')->pluck('id', 'rol');
+
+        return view('auth.index', compact('usuarios', 'roles'));
+    }
 }
+

@@ -13,6 +13,9 @@ html, body {
     margin: 0; /* Elimina el margen por defecto */
     font-family: "Roboto", sans-serif;
     overflow-y: auto;
+    background: url('/images/login.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 body {
@@ -23,32 +26,48 @@ body {
 }
 
 .login {
-    background: white; /* Fondo blanco para el formulario */
-    padding: 20px; /* Espaciado interno */
+    background: transparent; /* Fondo blanco para el formulario */
+    backdrop-filter: blur(20px);
     border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    width: 300px; /* Ancho del formulario */
-    text-align: left; /* Centra el texto dentro del formulario */
-    padding-bottom: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    padding: 3.5rem 2rem;
+    width: 420px;
+    border: rgba(255, 255, 255, 0.2);
 
+}
+
+.login form {
+    margin: 0;
 }
 
 .login form div {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    position: relative;
     margin-bottom: 12px;
     margin-top: 12px;
+    padding: 0.5rem;
 }
 
-.login form div label{
-    text-transform: uppercase;
+.login form div box-icon{
+    position: absolute;
+    top: 0;
+    right: 30px;
+    transform: translateY(25px);
 }
 
 .login form div input{
     border: 1px #d9d9d9 solid;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 1rem;
+    width: 90%;
+    border-radius: 40px;
+    outline-color: var(--verde-medio);
+    font-size: 20px;
+    
+}
+
+.login form div input::placeholder{
+    font-size: 16px;
+    color: var(--verde-medio);
+    text-transform: uppercase;
 }
 
 .login form button{
@@ -61,11 +80,19 @@ body {
     border-radius: 4px;
     transition: background-color 500ms ease-out;
     border: 0;
+    width: 100%;
+    height: 45px;
+    border-radius: 40px;
 }
 
 .login form button:hover{
     background-color: #768d90;
 
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
 }
 
 .registrarse{
@@ -87,10 +114,13 @@ body {
 
 .titulo {
     padding-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .titulo h1 {
-    color: var(--verde-medio);
+    color: #fff;
+    font-size: 36px;
     padding: 0;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -100,4 +130,11 @@ body {
     color: #d9d9d9;
     padding: 0;
     margin: 0;
+    font-size: 24px;
+}
+
+.error {
+    padding: 1rem;
+    color: red;
+    background-color: #f1b6b6;
 }

@@ -24,6 +24,16 @@ Route::post('/logout', [AutenticacionController::class, 'logout'])->name('logout
 Route::get('/registrarse', [AutenticacionController::class, 'registrarse'])->name('registrarse');
 Route::post('/registrarse', [AutenticacionController::class, 'guardarRegistro'])->name('guardarRegistro');
 
+
+
+Route::get('/usuarios', [AutenticacionController::class, 'index'])->name('usuarios.index');
+Route::post('/usuarios', [AutenticacionController::class, 'store'])->name('usuarios.store');
+Route::get('/usuarios/create', [AutenticacionController::class, 'create'])->name('usuarios.create');
+Route::get('/usuarios/edit/{usuario}', [AutenticacionController::class, 'edit'])->name('usuarios.edit');
+Route::patch('/usuarios/edit/{usuario}', [AutenticacionController::class, 'update'])->name('usuarios.update');
+Route::patch('/usuarios/{usuario}', [AutenticacionController::class, 'cambiarEstado'])->name('cambiarEstado');
+Route::get('/usuarios/busqueda', [AutenticacionController::class, 'buscarUsuario'])->name('buscarUsuario');
+
 //RUTAS DEL SISTEMA
 
 Route::get('/', function () {
