@@ -9,7 +9,7 @@
 
     <div class="login">
         @if ($errors->any())
-            <div class="error">
+            <div class="error" id="error">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -39,6 +39,21 @@
         </form>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Selecciona el elemento del mensaje flash
+            var flashMessage = document.getElementById('error');
+
+            // Si el mensaje existe, configúralo para desaparecer después de 5 segundos
+            if(flashMessage) {
+                setTimeout(function() {
+                    flashMessage.style.transition = "opacity 0.5s ease";  // Suavizar la desaparición
+                    flashMessage.style.opacity = 0;  // Desvanecer el mensaje
+                    setTimeout(() => flashMessage.remove(), 500);  // Eliminar el elemento después de desvanecerse
+                }, 3000);  // 5000 ms = 5 segundos
+            }
+        });
+    </script>
 
 </body>
 </html>

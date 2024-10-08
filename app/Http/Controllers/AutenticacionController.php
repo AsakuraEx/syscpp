@@ -61,7 +61,7 @@ class AutenticacionController extends Controller
     }
 
     public function store(Request $request){
-        
+        //dd(Hash::check($request->password, "$2y$10$3btpOtSg2luj2DZnMSgweuDkWxwjef0yzZjdA4nkDeDWQk4gC6RAK"));
         if($request->password === $request->password2){
             User::create([
                 'name' => $request->name,
@@ -122,7 +122,8 @@ class AutenticacionController extends Controller
         return to_route('usuarios.index')->with('success', 'Actualización de estado exitoso');
     }
 
-    public function buscarUsuario(Request $request){
+    public function buscarUsuario(Request $request)
+    {
 
         $usuarios = DB::table('users as u')
             ->join('roles as r', 'u.rol_type', '=', 'r.id')
@@ -145,6 +146,34 @@ class AutenticacionController extends Controller
         $roles = DB::table('roles')->pluck('id', 'rol');
 
         return view('auth.index', compact('usuarios', 'roles'));
+    }
+
+    public function password()
+    {
+        return view('auth.password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $usuario = User::where('id', Auth::user()->id)->first();
+        if($request->oldpassword != null){
+            if(Hash::check($request->oldpassword, Auth::user()->password)){
+                if($request->password === $request->password2){
+                    $usuario->update([
+                        'password' => Hash::make($request->password)
+                    ]);
+                    return to_route('home')->with('success', 'Se ha realizado el cambio de contraseña');
+                }
+                return back()->withErrors([
+                    'password' => 'Las contraseñas introducidas no coinciden',
+                ]);
+            }
+            return back()->withErrors([
+                'password' => 'Las credenciales no coinciden con los registros de usuario del sistema',
+            ]);
+        }
+
+
     }
 }
 

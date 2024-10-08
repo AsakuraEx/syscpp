@@ -4,7 +4,13 @@
 @section('title', 'Dashboard')
 
 @section('contenido')
-    
+     @if (Hash::check(123,Auth::user()->password))
+        <div class="msj">
+            Se recomienda cambiar la <b>contraseña de usuario</b>, por favor utilice la 
+            opción <b>Cambiar Contraseña</b> ubicada en la parte superior derecha de la pantalla, sobre el icono de engranaje.
+        </div>  
+     @endif
+
     <div class="portada">
         <h1 class="titulo-logo">SYSCPP</h1>
         <img src="/images/logo.png" alt="logo">
@@ -18,10 +24,30 @@
 @section('styles')
     
     <style>
+
+        .principal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .msj {
+            color: #ac1d1d;
+            background-color: #f39c9c;
+            border: 1px solid #ac1d1d;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 20px;
+            position: absolute;
+            top: 20px;
+            margin: 0 10px;
+        }
+
         .portada {
             text-align: center;
-            margin-top: 10%;
-            margin-bottom: auto;
+
         }
 
         .titulo-logo {

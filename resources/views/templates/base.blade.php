@@ -40,7 +40,7 @@
                     <i class="bi bi-gear"></i>
                 </button>
                 <div class="dropdown-menu" id="dropdown-menu">
-                    <a href="#">
+                    <a href="{{ route('usuarios.password') }}">
                         <i class="bi bi-pencil-fill"></i>
                         Cambiar Contraseña
                     </a>
