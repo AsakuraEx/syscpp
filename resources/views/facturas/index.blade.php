@@ -14,7 +14,7 @@
                     <select name="idProveedor" id="idProveedor">
                         <option value="">Seleccione un proveedor...</option>
                         @foreach ($proveedores as $nombreProveedor => $id)
-                            <option value="{{$id}}">{{$nombreProveedor}}</option>
+                            <option value="{{$id}}" {{ request('idProveedor') == $id ? 'selected' : '' }}>{{$nombreProveedor}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -23,23 +23,29 @@
                     <label for="estadoFactura">Estado de Factura</label>
                     <select name="estadoFactura" id="estadoFactura">
                         <option value="">Seleccione un estado...</option>
-                        <option value="Sin Pagar">Sin Pagar</option>
-                        <option value="Pagado Parcialmente">Pagado Parcialmente</option>
-                        <option value="Pagado">Pagado</option>
+                        <option value="Sin Pagar" {{ request('estadoFactura') == 'Sin Pagar' ? 'selected' : '' }}>Sin Pagar</option>
+                        <option value="Pagado Parcialmente" {{ request('estadoFactura') == 'Pagado Parcialmente' ? 'selected' : '' }}>Pagado Parcialmente</option>
+                        <option value="Pagado" {{ request('estadoFactura') == 'Pagado' ? 'selected' : '' }}>Pagado</option>
                     </select>
                 </div>
 
                 <div class="campo">
                     <label for="fecha">Fecha de Factura</label>
-                    <input type="date" name="fecha" id="fecha">
+                    <input type="date" name="fecha" id="fecha" value="{{ request('fecha') }}">
                 </div>
 
             </div>
 
+            <input type="hidden" name="accion" id="accion" value="buscar">
+
             <div class="btn-filtros">
-                <button type="submit">Buscar</button>
+                <button class="buscar" type="submit" id="buscar" onclick="document.getElementById('accion').value='buscar'">Buscar</button>
                 <a class="limpiar" href="{{ route('facturas.index')}}">Limpiar</a>
                 <a class="crear-factura" href="{{ route('facturas.create') }}">Agregar Factura</a>
+                <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
+                    <i class="bi bi-filetype-pdf"></i>
+                    PDF
+                </button>
             </div>
         </form>
 
@@ -303,7 +309,7 @@
         }
 
 
-        .btn-filtros button[type="submit"] {
+        .buscar {
             background-color: var(--verde-claro);
             border: 0;
             font-size: 20px;
@@ -315,7 +321,7 @@
             cursor: pointer;
         }
 
-        .btn-filtros button[type="submit"]:hover {
+        .buscar:hover {
             background-color: #6d9776;
         }
 

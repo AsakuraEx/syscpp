@@ -14,26 +14,32 @@
                     <select name="idProveedor" id="idProveedor">
                         <option value="">Seleccione un proveedor...</option>
                         @foreach ($proveedores as $nombreProveedor => $id)
-                            <option value="{{$id}}">{{$nombreProveedor}}</option>
+                            <option value="{{$id}}" {{ request('idProveedor') == $id ? 'selected' : '' }}>{{$nombreProveedor}}</option>
                         @endforeach
                     </select>
                 </div>
     
                 <div class="campo">
                     <label for="fechaFactura">Fecha de Factura</label>
-                    <input type="date" name="fechaFactura" id="fechaFactura">
+                    <input type="date" name="fechaFactura" id="fechaFactura" value="{{ request('fechaFactura') }}">
                 </div>
 
                 <div class="campo">
                     <label for="fechaPago">Fecha de Pago</label>
-                    <input type="date" name="fechaPago" id="fechaPago">
+                    <input type="date" name="fechaPago" id="fechaPago" value="{{ request('fechaPago') }}">
                 </div>
             </div>
 
+            <input type="hidden" name="accion" id="accion" value="buscar">
+
             <div class="btn-filtros">
-                <button type="submit">Buscar</button>
+                <button class="buscar" id="buscar" type="submit" onclick="document.getElementById('accion').value='buscar'">Buscar</button>
                 <a class="limpiar" href="{{ route('pagos.index')}}">Limpiar</a>
                 <a class="pagar" href="{{ route('pagos.create') }}">Pagar</a>
+                <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
+                    <i class="bi bi-filetype-pdf"></i>
+                    PDF
+                </button>
             </div>
         </form>
 
@@ -216,19 +222,6 @@
 
         }
 
-
-        .btn-filtros button[type="submit"] {
-            background-color: var(--verde-claro);
-            border: 0;
-            font-size: 20px;
-            font-weight: 700;
-            border-radius: 4px;
-            color: #ffffff;
-            padding: 0.75rem;
-            transition: background-color 500ms ease-out;
-            cursor: pointer;
-        }
-
         .limpiar {
             background-color: #f1f1f1;
             border: 0;
@@ -239,10 +232,6 @@
             padding: 0.75rem;
             text-decoration: none;
             transition: background-color 500ms ease-out;
-        }
-
-        .btn-filtros button[type="submit"]:hover {
-            background-color: #6d9776;
         }
 
         .limpiar:hover {

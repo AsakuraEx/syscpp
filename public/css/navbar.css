@@ -268,3 +268,35 @@ body {
     margin-right: auto;
     min-height: 82.5vh;
 }
+
+.pdf {
+    background-color: #582222;
+    border: 0;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 4px;
+    color: #f1f1f1;
+    padding: 0.75rem;
+    text-decoration: none;
+    transition: background-color 500ms ease-out;
+}
+
+.pdf:hover {
+    background-color: #802d2d;
+}
+
+.buscar {
+    background-color: var(--verde-claro);
+    border: 0;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 0.75rem;
+    transition: background-color 500ms ease-out;
+    cursor: pointer;
+}
+
+.buscar:hover {
+    background-color: #6d9776;
+}

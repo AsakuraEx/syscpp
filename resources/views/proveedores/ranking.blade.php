@@ -4,6 +4,8 @@
 @section('contenido')
     <h1>Los 10 mejores proveedores de NONG</h1>
 
+    <a class="crear-proveedor" href="{{ route('rankingPDF') }}">Generar PDF</a>
+    <br><br>
     <div class="tabla">
         <table cellspacing="0">
             <thead class="table-head">
@@ -30,6 +32,25 @@
 
 @section('styles')
     <style>
+
+        .crear-proveedor{
+            text-decoration: none;
+            background-color: var(--verde-semioscuro);
+            color: #ffffff;
+            text-align: center;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 0.75rem;
+            border-radius: 4px;
+            height: 24px;
+            transition: background-color 500ms ease-out;
+        }
+
+        .crear-proveedor:hover{
+            background-color: #536a6d;
+
+        }
+
         .tabla {
             overflow-x: auto;
         }

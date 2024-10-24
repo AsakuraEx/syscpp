@@ -77,12 +77,20 @@ class ProveedoresController extends Controller
     }
 
     public function buscarProveedor(Request $request){
-        $proveedores = DB::table('proveedores')->where('id', $request->proveedor)->orderBy('nombreProveedor','ASC')->paginate(10);
         
-        if($request->proveedor == null){
-            $proveedores = DB::table('proveedores')->orderBy('nombreProveedor','ASC')->paginate(10);
+        if($request->accion == 'buscar'){
+            $proveedores = DB::table('proveedores')->where('nombreProveedor','like', '%'.$request->proveedor.'%')->orderBy('nombreProveedor','ASC')->paginate(10);
+        
+            if($request->proveedor == null){
+                $proveedores = DB::table('proveedores')->orderBy('nombreProveedor','ASC')->paginate(10);
+            }
+            return view('proveedores.index', compact('proveedores'));
+        }else{
+            $pdfcontroller = new PDFController;
+            return $pdfcontroller->proveedoresPDF($request->proveedor);
         }
-        return view('proveedores.index', compact('proveedores'));
+        
+
     }
 
     public function rankingProveedores(){

@@ -10,20 +10,21 @@
         <form action="{{ route('buscarProveedor') }}" method="GET" class="filtros">
             <div class="campos-filtro">
                 <div class="campo">
-                    <select name="proveedor" id="proveedor">
-                        <option value="">Seleccione un proveedor...</option>
-                        @foreach ($proveedores as $proveedor)
-                            <option value="{{$proveedor->id}}">{{$proveedor->nombreProveedor}}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="proveedor" placeholder="Ingrese un proveedor" id="proveedor" value="{{request('proveedor')}}">
                 </div>
 
             </div>
 
+            <input type="hidden" name="accion" id="accion" value="buscar">
+
             <div class="btn-filtros">
-                <button type="submit">Buscar</button>
+                <button class="buscar" id="buscar" type="submit" onclick="document.getElementById('accion').value='buscar'">Buscar</button>
                 <a class="limpiar" href="{{ route('proveedores.index')}}">Limpiar</a>
                 <a class="crear-proveedor" href="{{ route('proveedores.create') }}">Crear Proveedor</a>
+                <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
+                    <i class="bi bi-filetype-pdf"></i>
+                    PDF
+                </button>
             </div>
         </form>
         
@@ -65,6 +66,14 @@
 @section('styles')
 
     <style>
+
+        .campo input[type="text"]{
+            padding: 0.5rem;
+            border-radius: 2px;
+            border: 1px solid #b6b6b6;
+            font-size: 20px;
+            width: 300px;
+        }
 
         .tabla {
             overflow-x: auto;
@@ -231,23 +240,6 @@
         .crear-proveedor:hover{
             background-color: #536a6d;
 
-        }
-
-
-        .btn-filtros button[type="submit"] {
-            background-color: var(--verde-claro);
-            border: 0;
-            font-size: 20px;
-            font-weight: 700;
-            border-radius: 4px;
-            color: #ffffff;
-            padding: 0.75rem;
-            transition: background-color 500ms ease-out;
-            cursor: pointer;
-        }
-
-        .btn-filtros button[type="submit"]:hover {
-            background-color: #6d9776;
         }
 
         .limpiar {

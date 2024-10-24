@@ -164,27 +164,34 @@ class FacturasController extends Controller
         $proveedor = $request->idProveedor;
         $estado = $request->estadoFactura;
         $fecha = $request->fecha;
+        $accion = $request->accion;
 
-        $facturas = DB::table('facturas as f')
+        if($accion === 'buscar'){
+            $facturas = DB::table('facturas as f')
             ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
             ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura','f.idProveedor', 'p.nombreProveedor')
             ->orderBy('fechaFactura', 'desc');
         
-        if($proveedor != null){
-            $facturas->where('f.idProveedor', $proveedor);
-        }
-        if($estado != null){
-            $facturas->where('f.estadoFactura', $estado);
-        }
-        if($fecha != null){
-            $facturas->where('f.fechaFactura', $fecha);
-        }
-        
-        $facturas = $facturas->Paginate(10);
+            if($proveedor != null){
+                $facturas->where('f.idProveedor', $proveedor);
+            }
+            if($estado != null){
+                $facturas->where('f.estadoFactura', $estado);
+            }
+            if($fecha != null){
+                $facturas->where('f.fechaFactura', $fecha);
+            }
+            
+            $facturas = $facturas->Paginate(10);
 
-        $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
+            $proveedores = DB::table('proveedores')->pluck('id', 'nombreProveedor');
 
-        return view('facturas.index', compact('facturas', 'proveedores'));
+            return view('facturas.index', compact('facturas', 'proveedores'));
+        }else{
+            $pdfcontroller = new PDFController;
+            return $pdfcontroller->facturasPDF($proveedor,$estado,$fecha);
+        }
+
 
     }
 
