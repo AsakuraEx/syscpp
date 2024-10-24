@@ -13,6 +13,7 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
         <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+        <link rel="shortcut icon" href="{{ asset('temp/icons/aprobado-2.png') }}" type="image/x-icon">
 
         <!-- Styles -->
         @yield('styles')
@@ -67,7 +68,9 @@
         >
             <div>
                 <div class="perfil">
-                    <img src="/images/foto-perfil.webp" alt="perfil" class="foto-perfil">
+                    @isset(Auth::user()->img)
+                        <img src="{{ Auth::user()->img }}" alt="perfil" class="foto-perfil">    
+                    @endisset                
                     <p>{{ Auth::user()->name }}</p>
                     <span>
                         @if (Auth::user()->rol_type == 1)

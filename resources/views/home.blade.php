@@ -4,9 +4,9 @@
 @section('title', 'Dashboard')
 
 @section('contenido')
-     @if (Hash::check(123,Auth::user()->password))
+     @if (Hash::check(123,Auth::user()->password) || Hash::check(12345678,Auth::user()->password) || Hash::check("contraseña",Auth::user()->password) || Hash::check("password",Auth::user()->password))
         <div class="msj">
-            Se recomienda cambiar la <b>contraseña de usuario</b>, por favor utilice la 
+            Se recomienda cambiar la <b>contraseña de usuario</b> debido a que es vulnerable, por favor utilice la 
             opción <b>Cambiar Contraseña</b> ubicada en la parte superior derecha de la pantalla, sobre el icono de engranaje.
         </div>  
      @endif

@@ -138,3 +138,7 @@ body {
     color: red;
     background-color: #f1b6b6;
 }
+
+.error ul {
+    list-style: none;
+}

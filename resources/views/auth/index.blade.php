@@ -42,6 +42,7 @@
             <thead class="table-head">
                 <td>Nombre de Usuario</td>
                 <td>Correo Electronico</td>
+                <td>Foto de Perfil</td>
                 <td>Estado</td>
                 <td>Privilegios</td>
                 <td>Acciones</td>
@@ -51,6 +52,13 @@
                 <tr class="table-row">
                     <td>{{ $usuario->name }}</td>
                     <td>{{ $usuario->email }}</td>
+                    <td>
+                        @if ($usuario->img == null)
+                            No
+                        @else
+                            Si                           
+                        @endif
+                    </td>
                     <td>
                         @if ($usuario->estado == 1)
                             <form action="{{ route('cambiarEstado', $usuario->id) }}" method="POST">

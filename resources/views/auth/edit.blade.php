@@ -6,7 +6,7 @@
     <h1>Actualizar Usuario</h1>
 
     @if ($errors->any())
-        <div id="error">
+        <div class="error" id="error">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST">
+    <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="campo">
@@ -46,6 +46,11 @@
                     <option value="{{ $id }}" {{ old('rol_type', $usuario->rol_type) == $id ? "selected" : "" }}>{{ $rol }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="campo">
+            <label for="imagen">Foto de Perfil</label>
+            <input type="file" name="perfil" value="{{ $usuario->img }}">
         </div>
 
         <div class="botones">

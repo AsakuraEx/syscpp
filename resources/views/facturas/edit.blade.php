@@ -7,7 +7,7 @@
     <h1>Actualizar registro de Facturas</h1>
 
     @if ($errors->any())
-        <div id="error">
+        <div class="error" id="error">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -80,7 +80,7 @@
 @endsection
 
 @section('styles')
-    
+
     <style>
 
         h1 {

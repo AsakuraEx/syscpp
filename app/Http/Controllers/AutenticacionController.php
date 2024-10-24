@@ -23,11 +23,20 @@ class AutenticacionController extends Controller
 
         $usuario = DB::table('users')->where('email', $request->email)->first();
 
+        if(!isset($usuario)){
+            return back()->withErrors([
+                'email' => 'No existen el usuario al que desea acceder, solicite un usuario al administrador del sistema.',
+            ]);
+        }
+
+
         if($usuario->estado === 0){
             return back()->withErrors([
                 'email' => 'El usuario esta deshabilitado',
             ]);
         }
+
+
 
         if(Auth::attempt($credenciales)){
             $request->session()->regenerate();
@@ -48,7 +57,7 @@ class AutenticacionController extends Controller
     public function index(){
         $usuarios = DB::table('users as u')
                     ->join('roles as r', 'u.rol_type', '=', 'r.id')
-                    ->select('u.id', 'u.name', 'u.email', 'u.estado', 'r.rol')
+                    ->select('u.id', 'u.name', 'u.email', 'u.estado', 'r.rol', 'u.img')
                     ->paginate(10);
 
         $roles = DB::table('roles')->pluck('id', 'rol');
@@ -63,15 +72,32 @@ class AutenticacionController extends Controller
     public function store(Request $request){
         //dd(Hash::check($request->password, "$2y$10$3btpOtSg2luj2DZnMSgweuDkWxwjef0yzZjdA4nkDeDWQk4gC6RAK"));
         if($request->password === $request->password2){
+            
+            $data = $request->all();
+            if(isset($data['perfil'])){
+                $pathFile = "/temp/perfiles/";
+                $pathSave = "temp/perfiles/";
+                $filename = 'img_perfil_'.time().'.'.$request->perfil->extension();
+                $data['perfil'] = $pathFile.$filename;
+                $request->perfil->move(public_path($pathSave), $filename);
+            }
+
             User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'rol_type' => $request->rol
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'img' => $data['perfil'],
+                'rol_type' => $data['rol']
+            ]);
+
+
+            
+            return to_route('usuarios.index')->with('success', 'Se ha creado el usuario');
+        }else{
+            return back()->withErrors([
+                'password' => 'Las contraseñas no coinciden.',
             ]);
         }
-
-        return to_route('usuarios.index')->with('success', 'Se ha creado el usuario');
 
     }
 
@@ -84,25 +110,35 @@ class AutenticacionController extends Controller
     public function update(Request $request, $id){
 
         $usuario = User::where('id', $id)->first();
-        if($request->password == null){
-            $usuario->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'rol_type' => $request->rol_type
-            ]);
-        }elseif ($request->password === $request->password2){
-            $usuario->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'rol_type' => $request->rol_type
-            ]);
-        }else{
-            return back()->withErrors([
-                'password' => 'Las contraseñas no coinciden',
-            ]);
+        
+        //MANIPULANDO LA IMAGEN
+        $data = $request->all();
+        if(isset($data['perfil'])){
+            $pathFile = "/temp/perfiles/";
+            $pathSave = "temp/perfiles/";
+            $filename = 'img_perfil_'.time().'.'.$request->perfil->extension();
+            $data['perfil'] = $pathFile.$filename;
+            $request->perfil->move(public_path($pathSave), $filename);
         }
+
+        //REGISTRANDO LA INFORMACION
+        $dataActualizada = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'rol_type' => $request->rol_type,
+        ];
+
+        if(!empty($request->perfil)){
+            $dataActualizada['img'] = $data['perfil'];
+        }
+
+        if (!empty($request->password) && $request->password === $request->password2) {
+            $dataActualizada['password'] = Hash::make($request->password);
+        } elseif (!empty($request->password) && $request->password !== $request->password2) {
+            return back()->withErrors(['password' => 'Las contraseñas no coinciden']);
+        }
+
+        $usuario->update($dataActualizada);
 
         return to_route('usuarios.index')->with('success', 'Se ha actualizado el usuario');
     }

@@ -16,6 +16,13 @@
 
 
 -- Volcando datos para la tabla syscpp.proveedores: ~12 rows (aproximadamente)
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `img`, `estado`, `rol_type`, `remember_token`, `created_at`, `updated_at`) VALUES (1, 'Francisco Escobar', 'franescobar97@hotmail.com', NULL, '$2y$10$ccW7jsXejwBZinzCvB9ei.WXZLAHPITjfid1j0rVJtPQJ6S08kIEG', '/temp/perfiles/img_perfil_1729786261.jpg', 1, 1, NULL, '2024-10-24 15:14:34', '2024-10-24 16:11:01');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `img`, `estado`, `rol_type`, `remember_token`, `created_at`, `updated_at`) VALUES (2, 'Sara Mancia', 'sarymancia95@gmail.com', NULL, '$2y$10$nrizPSqHyLCCXDYBQ27NBuJfOYQPd4yBnyIFJH564uLwky4TV119K', '/temp/perfiles/img_perfil_1729786485.jpg', 1, 1, NULL, '2024-10-24 15:34:56', '2024-10-24 16:14:45');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `img`, `estado`, `rol_type`, `remember_token`, `created_at`, `updated_at`) VALUES (3, 'Estandar', 'estandar@hotmail.com', NULL, '$2y$10$4f7XoYJLb1DWFXkHTCarA.uOLY7Rbqpz9MwHuDcdMG/kyXb1jKG4q', '/temp/perfiles/img_perfil_1729786365.jpg', 1, 3, NULL, '2024-10-24 16:12:45', '2024-10-24 16:12:45');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `img`, `estado`, `rol_type`, `remember_token`, `created_at`, `updated_at`) VALUES (4, 'Monitoreo', 'monitoreo@hotmail.com', NULL, '$2y$10$MyUImczTUu5428Hi4QBepege2CYYuXfgWSg2DxfCv7o017Q8iDw8u', '/temp/perfiles/img_perfil_1729786390.webp', 1, 2, NULL, '2024-10-24 16:13:10', '2024-10-24 16:13:10');
+
+
 INSERT INTO `proveedores` (`id`, `nombreProveedor`, `telefonoProveedor`, `correoProveedor`, `created_at`, `updated_at`) VALUES
 	(1, 'Zona Digital', NULL, NULL, '2024-10-07 08:25:22', '2024-10-07 08:25:22'),
 	(2, 'Kayfa S.A de C.V', NULL, NULL, '2024-10-07 08:25:36', '2024-10-07 08:25:36'),

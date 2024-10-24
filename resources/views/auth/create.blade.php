@@ -6,7 +6,7 @@
     <h1>Agregar Usuario</h1>
 
     @if ($errors->any())
-        <div id="error">
+        <div class="error" id="error">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('usuarios.store') }}" method="POST">
+    <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="campo">
             <label for="name">Nombre de Usuario</label>
@@ -47,6 +47,11 @@
             </select>
         </div>
 
+        <div class="campo">
+            <label for="imagen">Foto de Perfil</label>
+            <input type="file" name="perfil">
+        </div>
+
         <div class="botones">
             <button type="submit">Agregar Usuario</button>
             <a href="{{ route('usuarios.index') }}">Cancelar</a>
@@ -71,6 +76,7 @@
                 }, 3000);  // 5000 ms = 5 segundos
             }
         });
+
     </script>
 @endsection
 

@@ -7,7 +7,7 @@
     <h1>Registro de Facturas</h1>
 
     @if ($errors->any())
-        <div id="error">
+        <div class="error" id="error">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
