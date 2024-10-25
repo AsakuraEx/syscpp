@@ -19,6 +19,7 @@ class FacturasController extends Controller
         $facturas = DB::table('facturas as f')
                 ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
                 ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura', 'p.nombreProveedor')
+                ->orderBy('f.estadoFactura', 'desc')
                 ->orderBy('fechaFactura', 'desc')
                 ->Paginate(10);
 

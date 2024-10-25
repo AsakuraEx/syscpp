@@ -41,11 +41,15 @@
             <div class="btn-filtros">
                 <button class="buscar" type="submit" id="buscar" onclick="document.getElementById('accion').value='buscar'">Buscar</button>
                 <a class="limpiar" href="{{ route('facturas.index')}}">Limpiar</a>
-                <a class="crear-factura" href="{{ route('facturas.create') }}">Agregar Factura</a>
-                <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
-                    <i class="bi bi-filetype-pdf"></i>
-                    PDF
-                </button>
+                @if (Auth::user()->rol_type != 2)
+                    <a class="crear-factura" href="{{ route('facturas.create') }}">Agregar Factura</a>
+                @endif
+                @if (Auth::user()->rol_type != 3)
+                    <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
+                        <i class="bi bi-filetype-pdf"></i>
+                        PDF
+                    </button>
+                @endif
             </div>
         </form>
 
@@ -75,7 +79,7 @@
                     </td>
                     <td>{{ $factura->nombreProveedor }}</td>
                     <td>
-                        @if ($factura->estadoFactura == 'Sin Pagar')
+                        @if ($factura->estadoFactura == 'Sin Pagar' && Auth::user()->rol_type != 2)
                             <a href="{{ route('facturas.edit', $factura->id) }}">
                                 <button class="editar">Editar</button>
                             </a>

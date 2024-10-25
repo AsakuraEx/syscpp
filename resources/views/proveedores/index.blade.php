@@ -20,11 +20,16 @@
             <div class="btn-filtros">
                 <button class="buscar" id="buscar" type="submit" onclick="document.getElementById('accion').value='buscar'">Buscar</button>
                 <a class="limpiar" href="{{ route('proveedores.index')}}">Limpiar</a>
-                <a class="crear-proveedor" href="{{ route('proveedores.create') }}">Crear Proveedor</a>
-                <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
-                    <i class="bi bi-filetype-pdf"></i>
-                    PDF
-                </button>
+                @if (Auth::user()->rol_type != 2)
+                    <a class="crear-proveedor" href="{{ route('proveedores.create') }}">Crear Proveedor</a>
+                @endif
+
+                @if (Auth::user()->rol_type != 3)
+                    <button class="pdf" type="submit" id="pdf" onclick="document.getElementById('accion').value='pdf'">
+                        <i class="bi bi-filetype-pdf"></i>
+                        PDF
+                    </button>
+                @endif
             </div>
         </form>
         
@@ -45,14 +50,16 @@
                     <td>{{ $proveedor->telefonoProveedor }}</td>
                     <td>{{ $proveedor->correoProveedor }}</td>
                     <td>
-                        <a href="{{ route('proveedores.edit', $proveedor->id) }}">
-                            <button class="editar">Editar</button>
-                        </a>
-                        <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="post">
-                            @csrf
-                            @method("DELETE")
-                            <button class="eliminar"  type="submit">Eliminar</button>
-                        </form>
+                        @if (Auth::user()->rol_type != 2)
+                            <a href="{{ route('proveedores.edit', $proveedor->id) }}">
+                                <button class="editar">Editar</button>
+                            </a>
+                            <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="post">
+                                @csrf
+                                @method("DELETE")
+                                <button class="eliminar"  type="submit">Eliminar</button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

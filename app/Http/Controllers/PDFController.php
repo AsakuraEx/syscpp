@@ -49,7 +49,7 @@ class PDFController extends Controller
         $facturas = DB::table('facturas as f')
             ->join('proveedores as p', 'f.idProveedor', '=', 'p.id')
             ->select('f.id','f.fechaFactura', 'f.facturador', 'f.totalFactura','f.estadoFactura','f.idProveedor', 'p.nombreProveedor')
-            ->orderBy('fechaFactura', 'desc');
+            ->orderBy('f.estadoFactura', 'desc');
         
         if($proveedor != null){
             $facturas->where('f.idProveedor', $proveedor);
