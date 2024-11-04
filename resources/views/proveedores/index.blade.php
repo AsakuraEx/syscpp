@@ -54,11 +54,14 @@
                             <a href="{{ route('proveedores.edit', $proveedor->id) }}">
                                 <button class="editar">Editar</button>
                             </a>
+                            @if ($proveedor->totalFacturas === 0)
                             <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="post">
                                 @csrf
                                 @method("DELETE")
                                 <button class="eliminar"  type="submit">Eliminar</button>
                             </form>
+                            @endif
+
                         @endif
                     </td>
                 </tr>

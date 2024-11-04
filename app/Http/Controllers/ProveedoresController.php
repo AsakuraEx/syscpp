@@ -14,7 +14,13 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        $proveedores = DB::table('proveedores')->orderBy('nombreProveedor','ASC')->paginate(10);
+        $proveedores = DB::table('proveedores as p')
+        ->leftJoin('facturas as f', 'p.id','=', 'f.idProveedor')
+        ->select('p.id', 'p.nombreProveedor', 'p.telefonoProveedor', 'p.correoProveedor', DB::raw('COUNT(f.idProveedor) as totalFacturas'))
+        ->orderBy('p.nombreProveedor','ASC')
+        ->groupBy('p.id','p.nombreProveedor', 'p.telefonoProveedor', 'p.correoProveedor')
+        ->paginate(10);
+        
         //dd($proveedores);
         return view('proveedores.index', compact('proveedores'));
     }
@@ -77,9 +83,14 @@ class ProveedoresController extends Controller
     }
 
     public function buscarProveedor(Request $request){
-        
+
         if($request->accion == 'buscar'){
-            $proveedores = DB::table('proveedores')->where('nombreProveedor','like', '%'.$request->proveedor.'%')->orderBy('nombreProveedor','ASC')->paginate(10);
+            $proveedores = DB::table('proveedores as p')
+            ->leftJoin('facturas as f', 'p.id','=', 'f.idProveedor')
+            ->select('p.id', 'p.nombreProveedor', 'p.telefonoProveedor', 'p.correoProveedor', DB::raw('COUNT(f.idProveedor) as totalFacturas'))
+            ->orderBy('p.nombreProveedor','ASC')
+            ->groupBy('p.id','p.nombreProveedor', 'p.telefonoProveedor', 'p.correoProveedor')
+            ->where('p.nombreProveedor','like', '%'.$request->proveedor.'%')->paginate(10);
         
             if($request->proveedor == null){
                 $proveedores = DB::table('proveedores')->orderBy('nombreProveedor','ASC')->paginate(10);
