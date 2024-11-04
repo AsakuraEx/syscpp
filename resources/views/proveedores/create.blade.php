@@ -26,7 +26,7 @@
 
         <div class="campo">
             <label for="telefonoProveedor">Teléfono de Proveedor</label>
-            <input type="text" placeholder="Ingresa el telefono del proveedor..." name="telefonoProveedor" id="telefonoProveedor">
+            <input type="text" placeholder="Ingresa el teléfono del proveedor..." name="telefonoProveedor" id="telefonoProveedor">
         </div>
 
         <div class="campo">

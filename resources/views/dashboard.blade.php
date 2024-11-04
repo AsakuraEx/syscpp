@@ -91,7 +91,7 @@
             <div class="card-larga">
                 <div>
                     <p>
-                        <b>Fecha del ultimo pago</b>
+                        <b>Fecha del último pago</b>
                     </p>
                     @isset($ultimoPago[0])
                         <p>{{ $ultimoPago[0]->fecha }}</p>                        

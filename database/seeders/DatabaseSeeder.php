@@ -43,8 +43,22 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Francisco Escobar',
-            'email' => 'franescobar97@hotmail.com',
+            'name' => 'Usuario Administrador',
+            'email' => 'administrador@hotmail.com',
+            'password' => Hash::make('123'),
+            'rol_type' => '1'
+        ]);
+
+        User::create([
+            'name' => 'Usuario Monitoreo',
+            'email' => 'monitoreo@hotmail.com',
+            'password' => Hash::make('123'),
+            'rol_type' => '1'
+        ]);
+
+        User::create([
+            'name' => 'Usuario Estandar',
+            'email' => 'estandar@hotmail.com',
             'password' => Hash::make('123'),
             'rol_type' => '1'
         ]);

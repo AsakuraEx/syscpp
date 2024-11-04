@@ -9,7 +9,7 @@
     <div class="tabla">
         <table cellspacing="0">
             <thead class="table-head">
-                <td>#</td>
+                <td>N°</td>
                 <td>Proveedor</td>
                 <td>Total de Facturas</td>
                 <td>Porcentaje total de Facturas</td>
