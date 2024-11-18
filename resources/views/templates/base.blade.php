@@ -24,105 +24,113 @@
 
     </head>
     <body id="body">
-        <nav class="navbar">
-            <button 
-                class="btn-menu" 
-                onclick="mostrarMenu()"
-                id="btn-menu"
-            >
-                <i class="bi bi-list"></i>
-            </button>
-    
-            <div class="drop" id="dropdown">
-                <button class="dropdown" onclick="dropdownMenu()">
-                    <span>
-                        {{ Auth::user()->name }}
-                    </span>
-                    <i class="bi bi-gear"></i>
+        
+        <div class="relative">
+            <nav class="navbar fixed">
+                <button 
+                    class="btn-menu" 
+                    onclick="mostrarMenu()"
+                    id="btn-menu"
+                >
+                    <i class="bi bi-list"></i>
                 </button>
-                <div class="dropdown-menu" id="dropdown-menu">
-                    <a href="{{ route('usuarios.password') }}">
-                        <i class="bi bi-pencil-fill"></i>
-                        Cambiar Contraseña
-                    </a>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button class="logout" type="submit">
-                            <i class="bi bi-box-arrow-left"></i>
-                            Cerrar Sesión
-                        </button>
-                    </form>
+        
+                <div id="fondo-oscuro" onclick="ocultarMenu()">
+        
                 </div>
-            </div>
-    
-        </nav>
-    
-        <div id="fondo-oscuro" onclick="ocultarMenu()">
-    
-        </div>
-    
-        <div 
-            class="navmenu" 
-            id="navmenu"
-            onclick="mostrarMenu()"
-        >
-            <div>
-                <div class="perfil">
-                    @isset(Auth::user()->img)
-                        <img src="{{ Auth::user()->img }}" alt="perfil" class="foto-perfil">    
-                    @endisset                
-                    <p>{{ Auth::user()->name }}</p>
-                    <span>
-                        @if (Auth::user()->rol_type == 1)
-                            ADMINISTRADOR
-                        @endif
-                        @if (Auth::user()->rol_type == 2)
-                            MONITOREO
-                        @endif
-                        @if (Auth::user()->rol_type == 3)
-                            ESTANDAR
-                        @endif
-                    </span>
-                </div>
-                <div class="menu">
-                    <a href="{{ route('home') }}">
-                        <i class="bi bi-house"></i>
-                        Inicio
-                    </a>
-                    @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
-                        <a href="{{ route('dashboard') }}">
-                            <i class="bi bi-speedometer2"></i>
-                            Dashboard
+                
+                <div class="drop" id="dropdown">
+                    <button class="dropdown" onclick="dropdownMenu()">
+                        <span>
+                            {{ Auth::user()->name }}
+                        </span>
+                        <i class="bi bi-gear"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="{{ route('usuarios.password') }}">
+                            <i class="bi bi-pencil-fill"></i>
+                            Cambiar Contraseña
                         </a>
-                    @endif
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="logout" type="submit">
+                                <i class="bi bi-box-arrow-left"></i>
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    </div>
+                </div>
+        
 
-                    <a href="{{ route('proveedores.index') }}">
-                        <i class="bi bi-person-plus-fill"></i>
-                        Proveedores
-                    </a>
-                    <a href="{{ route('facturas.index') }}">
-                        <i class="bi bi-journal"></i>
-                        Facturas
-                    </a>
-                    <a href="{{ route('pagos.index') }}">
-                        <i class="bi bi-currency-dollar"></i>
-                        Pagos
-                    </a>
-                    @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
-                        <a href="{{ route('proveedores.ranking') }}">
-                            <i class='bx bxs-crown'></i>
-                            Ranking de Proveedores
-                        </a>
-                    @endif
-                    @if (Auth::user()->rol_type == 1)
-                        <a href="{{ route('usuarios.index') }}">
-                            <i class="bi bi-person-circle"></i>
-                            Administración de Usuarios
-                        </a>
-                    @endif
+            
+                <div 
+                    class="navmenu" 
+                    id="navmenu"
+                    onclick="mostrarMenu()"
+                >
+                    <div>
+                        <div class="perfil">
+                            @isset(Auth::user()->img)
+                                <img src="{{ Auth::user()->img }}" alt="perfil" class="foto-perfil">    
+                            @endisset                
+                            <p>{{ Auth::user()->name }}</p>
+                            <span>
+                                @if (Auth::user()->rol_type == 1)
+                                    ADMINISTRADOR
+                                @endif
+                                @if (Auth::user()->rol_type == 2)
+                                    MONITOREO
+                                @endif
+                                @if (Auth::user()->rol_type == 3)
+                                    ESTANDAR
+                                @endif
+                            </span>
+                        </div>
+                        <div class="menu">
+                            <a href="{{ route('home') }}">
+                                <i class="bi bi-house"></i>
+                                Inicio
+                            </a>
+                            @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
+                                <a href="{{ route('dashboard') }}">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
+                                </a>
+                            @endif
+        
+                            <a href="{{ route('proveedores.index') }}">
+                                <i class="bi bi-person-plus-fill"></i>
+                                Proveedores
+                            </a>
+                            <a href="{{ route('facturas.index') }}">
+                                <i class="bi bi-journal"></i>
+                                Facturas
+                            </a>
+                            <a href="{{ route('pagos.index') }}">
+                                <i class="bi bi-currency-dollar"></i>
+                                Pagos
+                            </a>
+                            @if (Auth::user()->rol_type == 1 || Auth::user()->rol_type == 2)
+                                <a href="{{ route('proveedores.ranking') }}">
+                                    <i class='bx bxs-crown'></i>
+                                    Ranking de Proveedores
+                                </a>
+                            @endif
+                            @if (Auth::user()->rol_type == 1)
+                                <a href="{{ route('usuarios.index') }}">
+                                    <i class="bi bi-person-circle"></i>
+                                    Administración de Usuarios
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+            </nav>
+        
+
         </div>
+
     
         <main class="contenido">
             <div class="principal">

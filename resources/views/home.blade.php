@@ -30,7 +30,8 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            position: relative;
+            gap: 4rem;
+
         }
 
         .msj {
@@ -40,9 +41,6 @@
             text-align: center;
             padding: 1rem;
             border-radius: 20px;
-            position: absolute;
-            top: 20px;
-            margin: 0 10px;
         }
 
         .portada {

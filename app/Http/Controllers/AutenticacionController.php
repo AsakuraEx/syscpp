@@ -80,13 +80,22 @@ class AutenticacionController extends Controller
                 $filename = 'img_perfil_'.time().'.'.$request->perfil->extension();
                 $data['perfil'] = $pathFile.$filename;
                 $request->perfil->move(public_path($pathSave), $filename);
+
+                User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'img' => $data['perfil'],
+                    'rol_type' => $data['rol']
+                ]);
+
+                return to_route('usuarios.index')->with('success', 'Se ha creado el usuario');
             }
 
             User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
-                'img' => $data['perfil'],
                 'rol_type' => $data['rol']
             ]);
 

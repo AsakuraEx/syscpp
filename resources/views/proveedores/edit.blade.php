@@ -32,7 +32,7 @@
         <div class="campo">
             <label for="telefonoProveedor">Teléfono de Proveedor</label>
             <input 
-                type="text" placeholder="Ingresa el telefono del proveedor..." 
+                type="text" placeholder="Ingresa el teléfono del proveedor..." 
                 name="telefonoProveedor" id="telefonoProveedor" value="{{$proveedor->telefonoProveedor}}"
             >
             <span class="helper">Formato: +503 ####-####</span>
