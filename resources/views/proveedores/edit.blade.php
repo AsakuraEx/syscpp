@@ -35,6 +35,7 @@
                 type="text" placeholder="Ingresa el telefono del proveedor..." 
                 name="telefonoProveedor" id="telefonoProveedor" value="{{$proveedor->telefonoProveedor}}"
             >
+            <span class="helper">Formato: +503 ####-####</span>
         </div>
 
         <div class="campo">
@@ -75,6 +76,16 @@
 @section('styles')
     
     <style>
+
+        .helper {
+
+            color: #a3a3a3;
+            margin-top: 0;
+            padding-top: 0;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 14px;
+        }
 
         h1 {
             color:var(--verde-semioscuro);;

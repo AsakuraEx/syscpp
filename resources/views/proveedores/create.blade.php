@@ -21,12 +21,13 @@
         @csrf
         <div class="campo">
             <label for="nombreProveedor">Nombre de Proveedor</label>
-            <input type="text" placeholder="Ingresa el nombre del proveedor..." name="nombreProveedor" id="nombreProveedor">
+            <input type="text" placeholder="Ingresa el nombre del proveedor..." name="nombreProveedor" id="nombreProveedor" required>
         </div>
 
         <div class="campo">
             <label for="telefonoProveedor">Teléfono de Proveedor</label>
             <input type="text" placeholder="Ingresa el telefono del proveedor..." name="telefonoProveedor" id="telefonoProveedor">
+            <span class="helper">Formato: +503 ####-####</span>
         </div>
 
         <div class="campo">
@@ -64,6 +65,16 @@
 @section('styles')
     
     <style>
+
+        .helper {
+
+            color: #a3a3a3;
+            margin-top: 0;
+            padding-top: 0;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 14px;
+        }
 
         h1 {
             color:var(--verde-semioscuro);;
